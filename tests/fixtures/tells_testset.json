@@ -1,0 +1,270 @@
+{
+  "_about": "Test fixture for Tells. Each case carries the message plus the verdict and signals a correct analysis should produce. Synthetic samples - no real inboxes, safe to commit to a public repo.",
+  "_enums": {
+    "tactics": [
+      "urgency",
+      "authority",
+      "fear",
+      "reward",
+      "secrecy",
+      "isolation",
+      "impersonation",
+      "credential_request",
+      "payment_request",
+      "ai_generated_polish"
+    ],
+    "signals": [
+      "link_text_mismatch",
+      "lookalike_domain",
+      "punycode_domain",
+      "display_name_mismatch",
+      "reply_to_mismatch"
+    ],
+    "verdicts": ["safe", "suspicious", "dangerous"]
+  },
+
+  "cases": [
+
+    {
+      "id": "p01",
+      "label": "phishing",
+      "from_display": "Barclays Security",
+      "from_address": "no-reply@barclays-secure-alerts.com",
+      "reply_to": null,
+      "subject": "Unusual activity detected - action required within 24 hours",
+      "body": "Dear Customer,\n\nWe have detected an unrecognised login attempt on your account from a device in Riga, Latvia.\n\nFor your protection your online banking has been temporarily restricted. To restore full access you must confirm your identity within 24 hours, after which your account will be suspended and funds held pending review.\n\nConfirm your identity here: https://barclays.co.uk/verify\n\nFailure to act will result in permanent restriction.\n\nBarclays Fraud Prevention Team",
+      "links": [
+        { "anchor_text": "https://barclays.co.uk/verify", "href": "https://barclays-secure-alerts.com/id/confirm?s=8812" }
+      ],
+      "expected_verdict": "dangerous",
+      "expected_tactics": ["urgency", "impersonation", "fear", "credential_request"],
+      "expected_signals": ["link_text_mismatch", "lookalike_domain"],
+      "note": "Baseline case. Link text shows the real bank domain, href does not. Should be the easiest full-score detection. Impersonation rather than authority: faking a named bank subsumes the false standing."
+    },
+
+    {
+      "id": "p02",
+      "label": "phishing",
+      "from_display": "DPD Delivery",
+      "from_address": "info@dpd-parcelservice.net",
+      "reply_to": null,
+      "subject": "Your parcel is waiting - EUR 1.95 customs fee unpaid",
+      "body": "Hello,\n\nYour parcel GB7741092284 could not be delivered because an outstanding customs charge of EUR 1.95 has not been settled.\n\nThe parcel will be returned to sender if payment is not received within 48 hours.\n\nPay the fee: https://dpd-parcelservice.net/pay/GB7741092284\n\nThank you,\nDPD Customer Service",
+      "links": [
+        { "anchor_text": "https://dpd-parcelservice.net/pay/GB7741092284", "href": "https://dpd-parcelservice.net/pay/GB7741092284" }
+      ],
+      "expected_verdict": "dangerous",
+      "expected_tactics": ["urgency", "payment_request", "impersonation"],
+      "expected_signals": ["lookalike_domain"],
+      "note": "Tiny amount lowers resistance; the real goal is the card form. Link is honest, so the model has to carry this one on tactics alone."
+    },
+
+    {
+      "id": "p03",
+      "label": "phishing",
+      "from_display": "Milan Sterba",
+      "from_address": "m.sterba.exec@gmail.com",
+      "reply_to": null,
+      "subject": "Quick favour - keep this between us for now",
+      "body": "Hi,\n\nI'm in back-to-back meetings all afternoon so I can't take calls.\n\nWe're closing an acquisition and I need a supplier deposit moved today - EUR 14,800. Please don't discuss this with anyone on the team yet, the deal isn't public and I don't want it leaking before Monday.\n\nCan you handle the transfer? Reply here and I'll send the account details.\n\nSent from my iPhone",
+      "links": [],
+      "expected_verdict": "dangerous",
+      "expected_tactics": ["impersonation", "secrecy", "isolation", "urgency", "payment_request"],
+      "expected_signals": ["display_name_mismatch"],
+      "note": "CEO fraud. No links at all - this case proves the tool is not just a URL scanner. Carries both halves of the pair: secrecy in 'keep this between us', isolation in 'I can't take calls'."
+    },
+
+    {
+      "id": "p04",
+      "label": "phishing",
+      "from_display": "HM Revenue & Customs",
+      "from_address": "refunds@hmrc-gov-uk.co",
+      "reply_to": null,
+      "subject": "You are eligible for a tax refund of GBP 612.40",
+      "body": "Dear Taxpayer,\n\nFollowing the annual reconciliation of your tax records, HMRC has determined that you overpaid GBP 612.40 in the 2025/26 tax year.\n\nTo receive your refund, submit your bank details through the secure portal below. Refunds not claimed within 10 working days are returned to the Treasury.\n\nClaim your refund: https://xn--hmrc-gov-9fb.co/refund\n\nHM Revenue & Customs",
+      "links": [
+        { "anchor_text": "Claim your refund", "href": "https://xn--hmrc-gov-9fb.co/refund" }
+      ],
+      "expected_verdict": "dangerous",
+      "expected_tactics": ["impersonation", "reward", "credential_request", "urgency"],
+      "expected_signals": ["punycode_domain", "lookalike_domain"],
+      "note": "Punycode case for the deterministic layer. Tax authorities never ask for bank details by email - good line for the explanation."
+    },
+
+    {
+      "id": "p05",
+      "label": "phishing",
+      "from_display": "Nordwerk Industrietechnik GmbH",
+      "from_address": "accounts@nordwerk-industrietechnik.com",
+      "reply_to": "billing.nordwerk@consultant.com",
+      "subject": "Updated remittance details for invoice NW-2026-4471",
+      "body": "Dear Valued Partner,\n\nWe hope this message finds you well.\n\nPlease be advised that, following a restructuring of our banking arrangements, our remittance details have been updated with immediate effect. We kindly request that all outstanding and future payments be directed to the new account specified below.\n\nInvoice NW-2026-4471 (EUR 8,430.00) remains outstanding. We would be most grateful if settlement could be arranged against the updated details at your earliest convenience.\n\nNew account details are attached for your records. Should you require any clarification, please do not hesitate to reply to this message.\n\nWith kind regards,\nAccounts Receivable\nNordwerk Industrietechnik GmbH",
+      "links": [],
+      "expected_verdict": "dangerous",
+      "expected_tactics": ["payment_request", "impersonation", "ai_generated_polish"],
+      "expected_signals": ["reply_to_mismatch"],
+      "note": "Invoice redirection fraud. Flawless corporate register with zero errors is itself the tell; Reply-To goes somewhere else entirely. This is the AI-enabled case."
+    },
+
+    {
+      "id": "p06",
+      "label": "phishing",
+      "from_display": "Microsoft account team",
+      "from_address": "security@microsoft-accountservices.com",
+      "reply_to": null,
+      "subject": "Was this you? New sign-in from Lagos, Nigeria",
+      "body": "A new sign-in to your Microsoft account was detected.\n\nDevice: Windows PC\nLocation: Lagos, Nigeria\nTime: 03/10/2026 02:14\n\nIf this was not you, your password may be compromised. Secure your account immediately:\n\nhttps://account.microsoft.com/security\n\nIf this was you, no action is needed.\n\nMicrosoft account team",
+      "links": [
+        { "anchor_text": "https://account.microsoft.com/security", "href": "https://microsoft-accountservices.com/sec/login" }
+      ],
+      "expected_verdict": "dangerous",
+      "expected_tactics": ["fear", "urgency", "credential_request", "impersonation"],
+      "expected_signals": ["link_text_mismatch", "lookalike_domain"],
+      "note": "Near-identical in shape to the legitimate security notice in L12. If the model separates these two correctly, the prompt is working."
+    },
+
+    {
+      "id": "p07",
+      "label": "phishing",
+      "from_display": "Prize Department",
+      "from_address": "claims@eu-consumer-rewards.info",
+      "reply_to": "winners.dept@mail.ru",
+      "subject": "FINAL NOTICE: your EUR 50,000 award is unclaimed",
+      "body": "CONGRATULATIONS!\n\nYour email address was selected in the European Consumer Loyalty Draw 2026. You have been awarded EUR 50,000.00.\n\nThis is the THIRD and FINAL notification. Unclaimed awards are redistributed after 72 hours.\n\nTo release your funds we require: full name, date of birth, address, and a copy of photo ID for verification purposes.\n\nReply to this email with the above information to begin processing.\n\nDo not share this reference number with anyone: ECLD-2026-77419\n\nPrize Department",
+      "links": [],
+      "expected_verdict": "dangerous",
+      "expected_tactics": ["reward", "urgency", "credential_request", "secrecy"],
+      "expected_signals": ["reply_to_mismatch"],
+      "note": "Crude and obvious. Included deliberately - the tool must still handle the unsophisticated end, and it is the clearest demo of the ID-harvesting pattern."
+    },
+
+    {
+      "id": "p08",
+      "label": "phishing",
+      "from_display": "IT Helpdesk",
+      "from_address": "helpdesk@isste-sokolov.org",
+      "reply_to": null,
+      "subject": "Mandatory: your password expires today",
+      "body": "Dear User,\n\nAs part of our scheduled security maintenance, all staff and student passwords must be revalidated. Your password expires at 23:59 today.\n\nAccounts that are not revalidated will be locked and require in-person reactivation.\n\nRevalidate now: https://isste-sokolov.org/sso/renew\n\nPlease enter your current password followed by your new password.\n\nIT Helpdesk\nDo not reply to this message.",
+      "links": [
+        { "anchor_text": "https://isste-sokolov.org/sso/renew", "href": "https://isste-sokolov.org/sso/renew" }
+      ],
+      "expected_verdict": "dangerous",
+      "expected_tactics": ["impersonation", "urgency", "credential_request", "isolation"],
+      "expected_signals": ["lookalike_domain"],
+      "note": "Internal impersonation. 'Enter your current password' is the decisive tell - no real IT system ever needs it that way. 'Do not reply to this message' is isolation: it closes the one channel that would expose the sender."
+    },
+
+    {
+      "id": "p09",
+      "label": "phishing",
+      "from_display": "Lena Hoffmann",
+      "from_address": "l.hoffmann@meridian-digitalassets.com",
+      "reply_to": null,
+      "subject": "Following up on our conversation about your portfolio",
+      "body": "Hi Milan,\n\nIt was a pleasure connecting with you after your presentation on autonomous robotics at the IEEE event - your points on sensor fusion were genuinely thought-provoking.\n\nAs promised, I wanted to follow up personally. Given your technical background, I think you would appreciate the structural arbitrage opportunity our fund is currently positioned in. Our Q3 return was 23.4% net, and we are opening a limited allocation to a small number of referred participants before it closes on Friday.\n\nMinimum entry is EUR 2,500, which I appreciate is modest - this is about building the relationship rather than the ticket size.\n\nI have attached the prospectus. Shall we speak before the window closes?\n\nWarm regards,\nLena Hoffmann\nSenior Partner, Meridian Digital Assets",
+      "links": [],
+      "expected_verdict": "suspicious",
+      "expected_tactics": ["reward", "urgency", "payment_request", "ai_generated_polish"],
+      "expected_signals": [],
+      "note": "Hardest case in the set. Zero deterministic signals, no errors, personalised with real-sounding detail, references a meeting that never happened. Only the tactic structure gives it away - this is what AI-era phishing actually looks like. Expected 'suspicious', not 'dangerous': nothing here is provably deceptive, so the honest answer is a concrete verification step. Not impersonation either - an invented person at an invented firm fakes no specific identity."
+    },
+
+    {
+      "id": "p10",
+      "label": "phishing",
+      "from_display": "Marketa",
+      "from_address": "marketa.sterbova.help@outlook.com",
+      "reply_to": null,
+      "subject": "its me - phone broken",
+      "body": "Milan its mum, dropped my phone in the sink and im on a borrowed one so dont ring this number.\n\nIm so sorry to ask but im stuck at the clinic and they wont release the paperwork without a payment today. Its 9,400 CZK. I will pay you straight back on friday i promise.\n\nPlease dont tell your dad, he will only worry and you know what hes like about money.\n\nCan you send it now? ill message the account in a minute.\n\nlove mum x",
+      "links": [],
+      "expected_verdict": "dangerous",
+      "expected_tactics": ["impersonation", "fear", "secrecy", "isolation", "urgency", "payment_request"],
+      "expected_signals": ["display_name_mismatch"],
+      "note": "Family-emergency scam, the written counterpart of voice cloning. Deliberately sloppy - informality is the disguise. Carries both halves: secrecy in 'dont tell your dad', isolation in 'dont ring this number'. Six expected tactics, so this case also checks the maxItems ceiling."
+    },
+
+    {
+      "id": "L11",
+      "label": "legitimate",
+      "from_display": "Kovoprace Zapad s.r.o.",
+      "from_address": "fakturace@kovopracezapad.cz",
+      "reply_to": null,
+      "subject": "Invoice 2026-0914 - due 17 October",
+      "body": "Good afternoon,\n\nPlease find attached invoice 2026-0914 for the aluminium profiles supplied on 28 September, total 14,220 CZK.\n\nPayment terms are 14 days, so the due date is 17 October. Bank details are unchanged and shown on the invoice as usual.\n\nAny questions, give me a call on the number below.\n\nBest regards,\nPavel Kriz\nKovoprace Zapad s.r.o.\n+420 352 441 908",
+      "links": [],
+      "expected_verdict": "safe",
+      "expected_tactics": [],
+      "expected_signals": [],
+      "note": "FALSE POSITIVE TRAP. Has a deadline and a payment request - a naive detector fires urgency + payment_request here. Tells: bank details explicitly unchanged, no pressure, a phone number, normal terms."
+    },
+
+    {
+      "id": "L12",
+      "label": "legitimate",
+      "from_display": "Fio banka",
+      "from_address": "noreply@fio.cz",
+      "reply_to": null,
+      "subject": "New device signed in to your internet banking",
+      "body": "Hello,\n\nWe are letting you know that your internet banking was accessed from a new device.\n\nDate: 2 October 2026, 19:42\nDevice: Chrome on Windows\nLocation: Karlovy Vary, Czech Republic\n\nIf this was you, no action is needed and you can ignore this message.\n\nIf you do not recognise this sign-in, log in to your internet banking the way you normally do, or call us on the number printed on your card, and change your password there.\n\nWe will never ask you for your password, PIN or card details by email.\n\nFio banka a.s.",
+      "links": [],
+      "expected_verdict": "safe",
+      "expected_tactics": [],
+      "expected_signals": [],
+      "note": "FALSE POSITIVE TRAP, and the direct counterpart to p06. Same subject matter, opposite behaviour: no link, no credential request, tells you to use your own route in. Getting this to safe while p06 stays dangerous is the core test."
+    },
+
+    {
+      "id": "L13",
+      "label": "legitimate",
+      "from_display": "GitHub",
+      "from_address": "noreply@github.com",
+      "reply_to": null,
+      "subject": "[GitHub] Please reset your password",
+      "body": "Hey mildovec01,\n\nA password reset was requested for your GitHub account. If you did not make this request, you can safely ignore this email.\n\nTo reset your password, visit the following link. It expires in one hour.\n\nhttps://github.com/password_reset/eyJhbGciOi-7f41c9\n\nThanks,\nThe GitHub Team",
+      "links": [
+        { "anchor_text": "https://github.com/password_reset/eyJhbGciOi-7f41c9", "href": "https://github.com/password_reset/eyJhbGciOi-7f41c9" }
+      ],
+      "expected_verdict": "safe",
+      "expected_tactics": [],
+      "expected_signals": [],
+      "note": "FALSE POSITIVE TRAP. Password link plus a one-hour expiry looks like urgency + credential_request. It is safe because the user initiated it, the domain is exact, and ignoring it is offered as a valid option."
+    },
+
+    {
+      "id": "L14",
+      "label": "legitimate",
+      "from_display": "Alza.cz",
+      "from_address": "newsletter@alza.cz",
+      "reply_to": null,
+      "subject": "48 hours only: 20% off selected electronics",
+      "body": "Our autumn sale ends on Sunday at midnight.\n\n20% off selected laptops, monitors and components. Discount applies automatically at checkout.\n\nBrowse the sale: https://www.alza.cz/akce/podzimni-vyprodej\n\nYou are receiving this because you subscribed to Alza newsletters. Unsubscribe at any time using the link below.",
+      "links": [
+        { "anchor_text": "Browse the sale", "href": "https://www.alza.cz/akce/podzimni-vyprodej" }
+      ],
+      "expected_verdict": "safe",
+      "expected_tactics": [],
+      "expected_signals": [],
+      "note": "FALSE POSITIVE TRAP. Genuine deadline and a genuine reward - the two tactics most often mis-fired. Ordinary marketing urgency is not manipulation: nothing is requested, there is an unsubscribe link, the domain is exact."
+    },
+
+    {
+      "id": "L15",
+      "label": "legitimate",
+      "from_display": "Zasilkovna",
+      "from_address": "info@zasilkovna.cz",
+      "reply_to": null,
+      "subject": "Your parcel is ready for collection until 9 October",
+      "body": "Good day,\n\nYour parcel Z4471-8820 is ready for collection at Pick-up Point Rotava, Sidlisti 412.\n\nCollection code: 884 112\nAvailable until: 9 October 2026\n\nTrack your parcel: https://www.zasilkovna.cz/sledovani/Z4471-8820\n\nOpening hours and directions are available on our website.\n\nZasilkovna",
+      "links": [
+        { "anchor_text": "Track your parcel", "href": "https://www.zasilkovna.cz/sledovani/Z4471-8820" }
+      ],
+      "expected_verdict": "safe",
+      "expected_tactics": [],
+      "expected_signals": [],
+      "note": "FALSE POSITIVE TRAP, counterpart to p02. Same category, same deadline shape - but no fee, no payment, exact domain. Tests that 'parcel' alone does not trigger a verdict."
+    }
+
+  ]
+}

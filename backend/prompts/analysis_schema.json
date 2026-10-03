@@ -1,0 +1,121 @@
+{
+  "name": "message_analysis",
+  "description": "Structured analysis of a message for manipulation tactics. Field order is deliberate: the model fills these in generation order, so the benign reading and the evidence are written BEFORE the verdict is committed to.",
+  "strict": true,
+  "schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "language",
+      "benign_reading",
+      "tactics",
+      "verdict",
+      "confidence",
+      "headline",
+      "explain_simple",
+      "recommended_action"
+    ],
+    "properties": {
+
+      "language": {
+        "type": "string",
+        "description": "BCP-47 tag of the message language, e.g. 'en', 'cs', 'de'. Detected, not assumed."
+      },
+
+      "benign_reading": {
+        "type": "string",
+        "description": "FILLED FIRST. One or two sentences describing how this message could be entirely legitimate - who might plausibly send it and why. Write this before considering any tactic. If no legitimate reading exists at all, say so and why.",
+        "maxLength": 400
+      },
+
+      "tactics": {
+        "type": "array",
+        "description": "Manipulation tactics present in the message. An empty array is a valid and expected answer for ordinary messages. Never include a tactic you cannot quote.",
+        "maxItems": 8,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["id", "severity", "evidence", "explanation"],
+          "properties": {
+            "id": {
+              "type": "string",
+              "enum": [
+                "urgency",
+                "authority",
+                "fear",
+                "reward",
+                "secrecy",
+                "impersonation",
+                "credential_request",
+                "payment_request",
+                "ai_generated_polish",
+                "isolation"
+              ]
+            },
+            "severity": {
+              "type": "string",
+              "enum": ["low", "medium", "high"]
+            },
+            "evidence": {
+              "type": "string",
+              "description": "VERBATIM substring copied from the message. Must match character for character - the UI highlights it in the original text. Never paraphrase, never summarise, never stitch together separate fragments.",
+              "maxLength": 300
+            },
+            "explanation": {
+              "type": "string",
+              "description": "One sentence: why this specific quote is a manipulation attempt rather than ordinary communication. No jargon.",
+              "maxLength": 300
+            }
+          }
+        }
+      },
+
+      "verdict": {
+        "type": "string",
+        "enum": ["safe", "suspicious", "dangerous"],
+        "description": "Chosen by what the reader should DO, not by how confident you feel. See the verdict definitions in the system prompt."
+      },
+
+      "confidence": {
+        "type": "string",
+        "enum": ["low", "medium", "high"],
+        "description": "How certain the verdict is. Reported separately so a cautious verdict does not have to pretend to certainty."
+      },
+
+      "headline": {
+        "type": "string",
+        "description": "One sentence a non-technical reader sees first. States what is going on, not what category it falls into. 'Someone is pretending to be your bank to get your login' beats 'Phishing detected'.",
+        "maxLength": 160
+      },
+
+      "explain_simple": {
+        "type": "string",
+        "description": "The same conclusion for a reader with no technical background - a child or an elderly person. Short sentences, everyday words, no security vocabulary at all. Explain the trick, not the technology.",
+        "maxLength": 600
+      },
+
+      "recommended_action": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["type", "detail"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "none",
+              "verify_independently",
+              "do_not_interact",
+              "delete_and_report"
+            ]
+          },
+          "detail": {
+            "type": "string",
+            "description": "A concrete step the reader can take today, naming the channel. 'Call the number printed on your card, not any number in this message.' Never 'be careful' or 'stay vigilant'. Required and must be specific whenever verdict is 'suspicious'.",
+            "maxLength": 300
+          }
+        }
+      }
+
+    }
+  }
+}
