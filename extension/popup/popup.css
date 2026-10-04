@@ -120,6 +120,45 @@ button {
   margin-top: 16px;
 }
 
+.shell-mode {
+  margin: 18px 0 0;
+  padding: 0;
+  border: none;
+  border-top: 1px solid var(--rule);
+  padding-top: 12px;
+}
+
+.shell-mode legend {
+  padding: 0;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.shell-mode-option {
+  display: grid;
+  grid-template-columns: 16px 1fr;
+  column-gap: 8px;
+  margin-top: 9px;
+  cursor: pointer;
+}
+
+.shell-mode-option input {
+  margin: 3px 0 0;
+  accent-color: var(--ink);
+}
+
+.shell-mode-name {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.shell-mode-note {
+  grid-column: 2;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--ink-soft);
+}
+
 .shell-foot {
   margin-top: 14px;
   padding-top: 10px;

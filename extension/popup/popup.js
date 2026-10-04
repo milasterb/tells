@@ -37,11 +37,25 @@
    * formatting is gone. That check needs the Gmail path.
    * ------------------------------------------------------------------ */
 
+  /**
+   * Header labels, in the languages a reader is likely to be pasting from.
+   *
+   * Without these the whole block falls into the body: the model still reads
+   * it and usually works it out, but from_address never gets set, so none of
+   * the deterministic checks can run. The strongest part of the tool goes
+   * quiet because of a word in the wrong language, which is a poor way for a
+   * multilingual tool to behave.
+   *
+   * Both the ASCII colon and the full-width one are accepted, since the
+   * latter is what a Chinese or Japanese client writes.
+   */
   const HEADER_PATTERNS = [
-    [/^from\s*:\s*(.+)$/i, "from"],
-    [/^sender\s*:\s*(.+)$/i, "from"],
-    [/^reply[\s-]?to\s*:\s*(.+)$/i, "reply_to"],
-    [/^subject\s*:\s*(.+)$/i, "subject"],
+    // sender
+    [/^(?:from|sender|von|absender|de|da|van|od|fr[aå]n|l[äa]hett[äa]j[äa]|发件人|寄件者|差出人|보낸사람)\s*[:：]\s*(.+)$/i, "from"],
+    // reply-to
+    [/^(?:reply[\s-]?to|antwort[\s-]?an|responder[\s-]?a|r[ée]pondre[\s-]?[àa]|rispondi[\s-]?a|odpowiedz[\s-]?do|odpov[ěe][ďd][\s-]?komu|回复)\s*[:：]\s*(.+)$/i, "reply_to"],
+    // subject
+    [/^(?:subject|betreff|asunto|objet|oggetto|assunto|onderwerp|temat|p[řr]edm[ěe]t|[äa]rende|aihe|主题|主旨|件名|제목)\s*[:：]\s*(.+)$/i, "subject"],
   ];
 
   const URL_PATTERN = /\b((?:https?:\/\/|www\.)[^\s<>()[\]{}"']+)/gi;
@@ -149,7 +163,14 @@
     const response = await fetch(`${API}/analyse`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...msg, signals, source: "paste" }),
+      body: JSON.stringify({
+        ...msg,
+        signals,
+        // The browser's language, so the explanation comes back in the
+        // reader's words even when the message is in someone else's.
+        reader_language: navigator.language,
+        source: "paste",
+      }),
     });
 
     if (!response.ok) {
@@ -225,6 +246,27 @@
   chrome.storage?.local.get("draft", (stored) => {
     if (stored && stored.draft) input.value = stored.draft;
   });
+
+  /* ------------------------------------------------------------------ *
+   * Gmail mode
+   *
+   * Manual is the default and stays the default. Watching someone's mail
+   * is not something a tool should start doing because it was installed -
+   * the reader turns it on, having read what it means.
+   * ------------------------------------------------------------------ */
+
+  const modeInputs = document.querySelectorAll('input[name="mode"]');
+
+  chrome.storage?.local.get("mode", (stored) => {
+    const mode = (stored && stored.mode) || "manual";
+    for (const radio of modeInputs) radio.checked = radio.value === mode;
+  });
+
+  for (const radio of modeInputs) {
+    radio.addEventListener("change", () => {
+      if (radio.checked) chrome.storage?.local.set({ mode: radio.value });
+    });
+  }
 
   checkHealth();
   input.focus();

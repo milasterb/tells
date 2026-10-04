@@ -33,6 +33,22 @@
 
   <div id="result" class="shell-result" aria-live="polite"></div>
 
+  <fieldset class="shell-mode">
+    <legend>In Gmail</legend>
+
+    <label class="shell-mode-option">
+      <input type="radio" name="mode" value="manual" checked>
+      <span class="shell-mode-name">Check when I ask</span>
+      <span class="shell-mode-note">Nothing is read until you press the button on a message.</span>
+    </label>
+
+    <label class="shell-mode-option">
+      <input type="radio" name="mode" value="automatic">
+      <span class="shell-mode-name">Watch every message</span>
+      <span class="shell-mode-note">Checks each message you open here in your browser, and only sends one on if something about it already looks wrong.</span>
+    </label>
+  </fieldset>
+
   <footer class="shell-foot">
     <span id="status" class="shell-status">Checking backend&hellip;</span>
   </footer>

@@ -73,6 +73,11 @@ class AnalyseRequest(BaseModel):
     # model is told about checks it cannot run itself.
     signals: list[str] = Field(default_factory=list)
 
+    # Who the explanation is for, not what the message is in. The browser's
+    # language, so a Chinese scam read by a Czech speaker comes back in Czech
+    # with the Chinese quoted.
+    reader_language: str | None = None
+
     # Where this came from, for logging only. Never changes the analysis.
     source: str = "unknown"
 
@@ -94,7 +99,7 @@ def analyse(req: AnalyseRequest) -> dict:
     if not req.body.strip() and not (req.subject or "").strip():
         raise HTTPException(status_code=400, detail="Nothing to analyse.")
 
-    msg = req.model_dump(exclude={"signals", "source"})
+    msg = req.model_dump(exclude={"signals", "source", "reader_language"})
     msg["links"] = [link.model_dump() for link in req.links]
 
     # A long forwarded thread would cost a fortune and analyse mostly quoted
@@ -107,7 +112,12 @@ def analyse(req: AnalyseRequest) -> dict:
 
     try:
         # strict=False: a degraded answer reaches the reader; a crash does not.
-        analysis = analyze(msg, signals=req.signals, strict=False)
+        analysis = analyze(
+            msg,
+            signals=req.signals,
+            strict=False,
+            reader_language=req.reader_language,
+        )
     except MalformedAnalysis as exc:
         log.error("analysis failed (%s): %s", req.source, exc)
         raise HTTPException(status_code=502, detail="Could not analyse this message.")

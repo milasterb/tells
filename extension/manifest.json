@@ -10,6 +10,19 @@
     "http://127.0.0.1:8000/*"
   ],
 
+  "background": {
+    "service_worker": "service-worker.js"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["https://mail.google.com/*"],
+      "js": ["content/signals.js", "ui/card.js", "content/gmail-adapter.js"],
+      "css": ["ui/card.css", "content/inject.css"],
+      "run_at": "document_idle"
+    }
+  ],
+
   "action": {
     "default_title": "Tells",
     "default_popup": "popup/popup.html"

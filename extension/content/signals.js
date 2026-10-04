@@ -143,26 +143,61 @@
    * ------------------------------------------------------------------ */
 
   const KNOWN_BRANDS = [
+    // banks and payment
     { token: "barclays", domains: ["barclays.co.uk", "barclays.com"] },
     { token: "hsbc", domains: ["hsbc.co.uk", "hsbc.com"] },
+    { token: "natwest", domains: ["natwest.com"] },
+    { token: "lloyds", domains: ["lloydsbank.com"] },
     { token: "paypal", domains: ["paypal.com", "paypal.co.uk"] },
+    { token: "revolut", domains: ["revolut.com"] },
+    { token: "wise", domains: ["wise.com"] },
+    { token: "sparkasse", domains: ["sparkasse.de"] },
+    { token: "commerzbank", domains: ["commerzbank.de"] },
+    { token: "santander", domains: ["santander.com", "santander.co.uk", "santander.es"] },
+    { token: "bbva", domains: ["bbva.com", "bbva.es"] },
+    { token: "caixabank", domains: ["caixabank.es"] },
+    { token: "unicredit", domains: ["unicredit.eu", "unicreditgroup.eu"] },
+    { token: "raiffeisen", domains: ["raiffeisen.com", "rb.cz"] },
+    { token: "erste", domains: ["erstegroup.com"] },
+    { token: "fio", domains: ["fio.cz"] },
+    { token: "csob", domains: ["csob.cz"] },
+    { token: "komercni", domains: ["kb.cz"] },
+    { token: "moneta", domains: ["moneta.cz"] },
+    { token: "airbank", domains: ["airbank.cz"] },
+
+    // tax and government
+    { token: "hmrc", domains: ["hmrc.gov.uk", "gov.uk"] },
+    { token: "financnisprava", domains: ["financnisprava.cz"] },
+    { token: "datovaschranka", domains: ["mojedatovaschranka.cz"] },
+
+    // post and parcels
+    { token: "dpd", domains: ["dpd.com", "dpd.co.uk", "dpd.cz", "dpd.de"] },
+    { token: "dhl", domains: ["dhl.com", "dhl.de"] },
+    { token: "fedex", domains: ["fedex.com"] },
+    { token: "ups", domains: ["ups.com"] },
+    { token: "gls", domains: ["gls-group.eu"] },
+    { token: "correos", domains: ["correos.es"] },
+    { token: "zasilkovna", domains: ["zasilkovna.cz", "packeta.com"] },
+    { token: "ceskaposta", domains: ["ceskaposta.cz"] },
+    { token: "postnl", domains: ["postnl.nl"] },
+    { token: "royalmail", domains: ["royalmail.com"] },
+
+    // platforms
     { token: "microsoft", domains: ["microsoft.com", "live.com", "outlook.com"] },
     { token: "apple", domains: ["apple.com", "icloud.com"] },
     { token: "google", domains: ["google.com", "gmail.com"] },
     { token: "amazon", domains: ["amazon.com", "amazon.co.uk", "amazon.de"] },
     { token: "netflix", domains: ["netflix.com"] },
+    { token: "spotify", domains: ["spotify.com"] },
     { token: "github", domains: ["github.com"] },
-    { token: "hmrc", domains: ["hmrc.gov.uk", "gov.uk"] },
-    { token: "dpd", domains: ["dpd.com", "dpd.co.uk", "dpd.cz"] },
-    { token: "dhl", domains: ["dhl.com", "dhl.de"] },
-    { token: "fedex", domains: ["fedex.com"] },
+    { token: "dropbox", domains: ["dropbox.com"] },
+    { token: "booking", domains: ["booking.com"] },
+    { token: "ebay", domains: ["ebay.com", "ebay.co.uk", "ebay.de"] },
     { token: "alza", domains: ["alza.cz", "alza.sk"] },
-    { token: "zasilkovna", domains: ["zasilkovna.cz"] },
-    { token: "fio", domains: ["fio.cz"] },
-    { token: "csob", domains: ["csob.cz"] },
-    { token: "komercni", domains: ["kb.cz"] },
-    { token: "moneta", domains: ["moneta.cz"] },
+
+    // utilities
     { token: "cez", domains: ["cez.cz"] },
+    { token: "innogy", domains: ["innogy.cz"] },
   ];
 
   const FREEMAIL = new Set([
@@ -292,6 +327,14 @@
    * has ever written from this address before - which the extension does not
    * have. That gap is real and it belongs in the README, not papered over
    * with a rule that fires on half the honest mail anyone gets.
+   *
+   * It is also Latin-script only. A display name written as 中国银行安全中心
+   * cannot be matched against a list of Latin brand tokens at all, so a
+   * message impersonating a bank in Chinese, Arabic or Greek reaches the
+   * model with no signal attached. Transliteration would be guesswork; the
+   * honest fix is per-script brand lists, which is more than a week allows.
+   * The model still reads those messages correctly - this layer just has
+   * nothing to add to them.
    */
   function checkDisplayNameMismatch(msg) {
     const display = normalise(msg.from_display || "");

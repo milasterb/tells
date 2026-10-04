@@ -1,0 +1,96 @@
+/**
+ * Tells - injected into Gmail.
+ *
+ * Positioning for the card and the bar that precedes it. The card's own looks
+ * come from card.css, which is written to survive being dropped into someone
+ * else's page; this file only places it.
+ *
+ * Gmail's stylesheet is broad and specific. Every property that could be
+ * inherited is set here rather than assumed.
+ */
+
+.tells-host {
+  margin: 0 0 14px;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  text-align: left;
+}
+
+.tells-host .tells-card {
+  margin: 0;
+}
+
+/* ---------------------------------------------------------------- *
+ * The bar: before anything has been checked
+ * ---------------------------------------------------------------- */
+
+.tells-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px 8px 12px;
+  border: 1px solid #e3ded6;
+  border-left: 4px solid #9a9089;
+  border-radius: 3px;
+  background: #fcfbf8;
+  color: #241f1c;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.tells-bar-mascot {
+  width: 22px;
+  height: 22px;
+  flex: none;
+  color: #6b615a;
+  image-rendering: pixelated;
+}
+
+.tells-bar-text {
+  flex: 1;
+  color: #6b615a;
+}
+
+.tells-bar-text:empty {
+  display: none;
+}
+
+.tells-bar-button {
+  flex: none;
+  font: inherit;
+  font-weight: 600;
+  color: #fcfbf8;
+  background: #241f1c;
+  border: 1px solid #241f1c;
+  border-radius: 3px;
+  padding: 6px 11px;
+  cursor: pointer;
+}
+
+.tells-bar-button:hover {
+  background: #3a322d;
+}
+
+.tells-bar-button:focus-visible {
+  outline: 2px solid #241f1c;
+  outline-offset: 2px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .tells-bar {
+    background: #1a1816;
+    border-color: #37322e;
+    border-left-color: #766d66;
+    color: #ede8e1;
+  }
+
+  .tells-bar-text { color: #a89f97; }
+  .tells-bar-mascot { color: #a89f97; }
+
+  .tells-bar-button {
+    color: #1a1816;
+    background: #ede8e1;
+    border-color: #ede8e1;
+  }
+
+  .tells-bar-button:hover { background: #fff; }
+}

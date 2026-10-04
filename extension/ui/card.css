@@ -159,6 +159,22 @@
   box-decoration-break: clone;
 }
 
+/**
+ * On a safe verdict there is no giveaway, so the marker becomes a note
+ * rather than a warning. The loud highlight is reserved for a message
+ * that is actually trying something - a yellow flash under the words
+ * "Nothing out of place" tells a frightened reader two things at once.
+ */
+.tells-card[data-verdict="safe"] .tells-quote mark,
+.tells-card[data-verdict="safe"] .tells-quote-mark {
+  background: none;
+  mix-blend-mode: normal;
+  box-shadow: inset 0 -1px 0 var(--rule);
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+}
+
 .tells-why {
   margin: 6px 0 0;
   font-size: var(--t-small);
