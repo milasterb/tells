@@ -1,0 +1,319 @@
+/**
+ * Tells - result card.
+ *
+ * Everything is scoped under .tells-card and every inherited property is set
+ * explicitly, because this stylesheet is injected into Gmail, whose own CSS
+ * would otherwise reach in and set fonts, line-heights and colours.
+ *
+ * The design: an annotated letter. The verdict is a margin rule down the left
+ * edge rather than a coloured banner - the reader is often frightened already,
+ * and a wall of red makes that worse without telling them anything. The one
+ * loud element is the marker highlight on the words that gave the message
+ * away, because those words are the whole point of the product.
+ */
+
+.tells-card {
+  /* paper and ink, not panel and text */
+  --paper: #fcfbf8;
+  --paper-sunk: #f5f2ec;
+  --ink: #241f1c;
+  --ink-soft: #6b615a;
+  --ink-faint: #9a9089;
+  --rule: #e3ded6;
+
+  --marker: rgba(255, 214, 51, 0.42);
+
+  --safe: #1f6f5c;
+  --suspicious: #b7731a;
+  --dangerous: #8e2a2a;
+
+  --verdict: var(--ink-soft);
+
+  /* 1.5 ratio, floored at 15px: this is read by people with tired eyes */
+  --t-quote: 17px;
+  --t-body: 15px;
+  --t-small: 13px;
+
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --serif: Georgia, "Iowan Old Style", "Times New Roman", serif;
+
+  box-sizing: border-box;
+  margin: 0;
+  padding: 18px 20px 16px 22px;
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--verdict);
+  border-radius: 3px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: var(--t-body);
+  line-height: 1.55;
+  text-align: left;
+  max-width: 560px;
+}
+
+.tells-card *,
+.tells-card *::before,
+.tells-card *::after {
+  box-sizing: inherit;
+}
+
+.tells-card[data-verdict="safe"] { --verdict: var(--safe); }
+.tells-card[data-verdict="suspicious"] { --verdict: var(--suspicious); }
+.tells-card[data-verdict="dangerous"] { --verdict: var(--dangerous); }
+
+/* ---------------------------------------------------------------- *
+ * Head: mascot, verdict word, headline
+ * ---------------------------------------------------------------- */
+
+.tells-head {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  gap: 12px;
+  align-items: start;
+}
+
+.tells-mascot {
+  width: 34px;
+  height: 34px;
+  display: block;
+  /* pixel sprites must not be smoothed when scaled */
+  image-rendering: pixelated;
+}
+
+.tells-verdict-word {
+  margin: 0 0 2px;
+  font-size: var(--t-small);
+  font-weight: 650;
+  letter-spacing: 0.01em;
+  color: var(--verdict);
+}
+
+.tells-headline {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.011em;
+  color: var(--ink);
+  text-wrap: pretty;
+}
+
+/* ---------------------------------------------------------------- *
+ * Action: what to do, directly under the headline
+ * ---------------------------------------------------------------- */
+
+.tells-action {
+  margin: 14px 0 0;
+  padding: 10px 12px;
+  background: var(--paper-sunk);
+  border-radius: 3px;
+  font-size: var(--t-body);
+  color: var(--ink);
+}
+
+.tells-action[data-kind="none"] {
+  background: none;
+  padding: 0;
+  margin-top: 10px;
+  color: var(--ink-soft);
+}
+
+/* ---------------------------------------------------------------- *
+ * Tells: the quoted evidence. The body of the card.
+ * ---------------------------------------------------------------- */
+
+.tells-list {
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--rule);
+}
+
+.tells-item {
+  padding: 14px 0 0;
+  margin: 0 0 14px;
+}
+
+.tells-item:last-child {
+  margin-bottom: 2px;
+}
+
+.tells-quote {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: var(--t-quote);
+  line-height: 1.45;
+  color: var(--ink);
+}
+
+/* The one loud thing on the card: a marker drawn over the giveaway. */
+.tells-quote mark,
+.tells-quote-mark {
+  background: var(--marker);
+  mix-blend-mode: multiply;
+  color: inherit;
+  padding: 0.05em 0.12em;
+  margin: 0 -0.12em;
+  border-radius: 2px;
+  box-decoration-break: clone;
+}
+
+.tells-why {
+  margin: 6px 0 0;
+  font-size: var(--t-small);
+  color: var(--ink-soft);
+}
+
+.tells-why b {
+  font-weight: 650;
+  color: var(--ink);
+}
+
+.tells-sev {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin: 0 7px 2px 0;
+  border-radius: 50%;
+  background: var(--ink-faint);
+  vertical-align: middle;
+}
+
+.tells-item[data-severity="high"] .tells-sev { background: var(--verdict); }
+.tells-item[data-severity="medium"] .tells-sev { background: var(--ink-soft); }
+
+/* ---------------------------------------------------------------- *
+ * Footer: the simple explanation, and the benign reading
+ * ---------------------------------------------------------------- */
+
+.tells-simple {
+  margin: 16px 0 0;
+  border-top: 1px solid var(--rule);
+  padding-top: 12px;
+}
+
+.tells-simple summary {
+  cursor: pointer;
+  font-size: var(--t-small);
+  font-weight: 600;
+  color: var(--verdict);
+  list-style: none;
+}
+
+.tells-simple summary::-webkit-details-marker { display: none; }
+
+.tells-simple summary::after {
+  content: "";
+  display: inline-block;
+  width: 0.42em;
+  height: 0.42em;
+  margin-left: 0.5em;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+}
+
+.tells-simple[open] summary::after {
+  transform: translateY(1px) rotate(225deg);
+}
+
+.tells-simple-body {
+  margin: 10px 0 0;
+  font-size: var(--t-body);
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+.tells-benign {
+  margin: 12px 0 0;
+  font-size: var(--t-small);
+  color: var(--ink-soft);
+}
+
+.tells-meta {
+  margin: 14px 0 0;
+  font-size: 12px;
+  color: var(--ink-faint);
+}
+
+/* ---------------------------------------------------------------- *
+ * Working and failed states
+ * ---------------------------------------------------------------- */
+
+.tells-card[data-state="working"] .tells-headline,
+.tells-card[data-state="failed"] .tells-headline {
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+
+.tells-retry {
+  margin-top: 12px;
+  font: inherit;
+  font-size: var(--t-small);
+  font-weight: 600;
+  color: var(--paper);
+  background: var(--ink);
+  border: none;
+  border-radius: 3px;
+  padding: 7px 12px;
+  cursor: pointer;
+}
+
+.tells-retry:hover { background: #3a322d; }
+
+.tells-card :focus-visible {
+  outline: 2px solid var(--verdict);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------- *
+ * The single piece of motion: the mascot reacting when a verdict
+ * lands. Everything else is static.
+ * ---------------------------------------------------------------- */
+
+@keyframes tells-react {
+  0%   { transform: translateY(0) scale(1); }
+  35%  { transform: translateY(-3px) scale(1.06); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+.tells-mascot[data-reacting="true"] {
+  animation: tells-react 260ms steps(3, end);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tells-mascot[data-reacting="true"] { animation: none; }
+}
+
+/* ---------------------------------------------------------------- *
+ * Dark
+ * ---------------------------------------------------------------- */
+
+@media (prefers-color-scheme: dark) {
+  .tells-card:not([data-theme="light"]) {
+    --paper: #1a1816;
+    --paper-sunk: #242120;
+    --ink: #ede8e1;
+    --ink-soft: #a89f97;
+    --ink-faint: #766d66;
+    --rule: #37322e;
+
+    /* multiply would turn the text black on a dark paper */
+    --marker: rgba(255, 214, 51, 0.2);
+
+    --safe: #5aab93;
+    --suspicious: #d9a44e;
+    --dangerous: #d9736b;
+  }
+
+  .tells-card:not([data-theme="light"]) .tells-quote mark,
+  .tells-card:not([data-theme="light"]) .tells-quote-mark {
+    mix-blend-mode: normal;
+  }
+
+  .tells-card:not([data-theme="light"]) .tells-retry {
+    color: #1a1816;
+    background: var(--ink);
+  }
+}

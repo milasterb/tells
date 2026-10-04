@@ -38,7 +38,7 @@
       ],
       "expected_verdict": "dangerous",
       "expected_tactics": ["urgency", "impersonation", "fear", "credential_request"],
-      "expected_signals": ["link_text_mismatch", "lookalike_domain"],
+      "expected_signals": ["link_text_mismatch", "lookalike_domain", "display_name_mismatch"],
       "note": "Baseline case. Link text shows the real bank domain, href does not. Should be the easiest full-score detection. Impersonation rather than authority: faking a named bank subsumes the false standing."
     },
 
@@ -55,7 +55,7 @@
       ],
       "expected_verdict": "dangerous",
       "expected_tactics": ["urgency", "payment_request", "impersonation"],
-      "expected_signals": ["lookalike_domain"],
+      "expected_signals": ["lookalike_domain", "display_name_mismatch"],
       "note": "Tiny amount lowers resistance; the real goal is the card form. Link is honest, so the model has to carry this one on tactics alone."
     },
 
@@ -70,8 +70,8 @@
       "links": [],
       "expected_verdict": "dangerous",
       "expected_tactics": ["impersonation", "secrecy", "isolation", "urgency", "payment_request"],
-      "expected_signals": ["display_name_mismatch"],
-      "note": "CEO fraud. No links at all - this case proves the tool is not just a URL scanner. Carries both halves of the pair: secrecy in 'keep this between us', isolation in 'I can't take calls'."
+      "expected_signals": [],
+      "note": "CEO fraud. No links at all - this case proves the tool is not just a URL scanner. Carries both halves of the pair: secrecy in 'keep this between us', isolation in 'I can't take calls'. No expected signals: a person's name arriving from a freemail address is indistinguishable from the millions of people who legitimately use one, so the deterministic layer stays silent here by design. This case belongs entirely to the model."
     },
 
     {
@@ -119,7 +119,7 @@
       ],
       "expected_verdict": "dangerous",
       "expected_tactics": ["fear", "urgency", "credential_request", "impersonation"],
-      "expected_signals": ["link_text_mismatch", "lookalike_domain"],
+      "expected_signals": ["link_text_mismatch", "lookalike_domain", "display_name_mismatch"],
       "note": "Near-identical in shape to the legitimate security notice in L12. If the model separates these two correctly, the prompt is working."
     },
 
@@ -151,8 +151,8 @@
       ],
       "expected_verdict": "dangerous",
       "expected_tactics": ["impersonation", "urgency", "credential_request", "isolation"],
-      "expected_signals": ["lookalike_domain"],
-      "note": "Internal impersonation. 'Enter your current password' is the decisive tell - no real IT system ever needs it that way. 'Do not reply to this message' is isolation: it closes the one channel that would expose the sender."
+      "expected_signals": [],
+      "note": "Internal impersonation. 'Enter your current password' is the decisive tell - no real IT system ever needs it that way. 'Do not reply to this message' is isolation: it closes the one channel that would expose the sender. No expected signals: spotting a lookalike of the reader's own school needs its real domain configured, which a general brand list cannot know. Another case carried by the model alone."
     },
 
     {
@@ -181,8 +181,8 @@
       "links": [],
       "expected_verdict": "dangerous",
       "expected_tactics": ["impersonation", "fear", "secrecy", "isolation", "urgency", "payment_request"],
-      "expected_signals": ["display_name_mismatch"],
-      "note": "Family-emergency scam, the written counterpart of voice cloning. Deliberately sloppy - informality is the disguise. Carries both halves: secrecy in 'dont tell your dad', isolation in 'dont ring this number'. Six expected tactics, so this case also checks the maxItems ceiling."
+      "expected_signals": [],
+      "note": "Family-emergency scam, the written counterpart of voice cloning. Deliberately sloppy - informality is the disguise. Carries both halves: secrecy in 'dont tell your dad', isolation in 'dont ring this number'. Six expected tactics, so this case also checks the maxItems ceiling. No expected signals, for the same reason as p03."
     },
 
     {

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Tells</title>
+  <link rel="stylesheet" href="../ui/card.css">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+
+  <header class="shell-head">
+    <h1>Tells</h1>
+    <p class="shell-tagline">Paste anything that looks off &mdash; an email, a text, a WhatsApp message.</p>
+  </header>
+
+  <form id="paste-form" class="shell-form">
+    <label class="shell-label" for="paste">
+      Message
+    </label>
+    <textarea
+      id="paste"
+      name="paste"
+      rows="7"
+      placeholder="Paste the message here. Include the sender's name and address if you have them."
+      spellcheck="false"
+      required></textarea>
+
+    <div class="shell-row">
+      <button type="submit" id="check" class="shell-check">Check this message</button>
+      <button type="button" id="clear" class="shell-clear">Clear</button>
+    </div>
+  </form>
+
+  <div id="result" class="shell-result" aria-live="polite"></div>
+
+  <footer class="shell-foot">
+    <span id="status" class="shell-status">Checking backend&hellip;</span>
+  </footer>
+
+  <script src="../content/signals.js"></script>
+  <script src="../ui/card.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
