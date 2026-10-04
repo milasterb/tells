@@ -24,6 +24,7 @@ import os
 from pathlib import Path
 
 import anthropic
+from dotenv import load_dotenv
 
 # Verify the exact string against the current model list before relying on it.
 MODEL = "claude-sonnet-5-5"
@@ -32,7 +33,16 @@ RETRIES = 2
 
 PROMPTS_DIR = Path(__file__).parent / "prompts"
 
-_client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
+load_dotenv(PROMPTS_DIR.parent / ".env")
+
+_API_KEY = os.environ.get("ANTHROPIC_API_KEY")
+if not _API_KEY:
+    raise RuntimeError(
+        "ANTHROPIC_API_KEY is not set. Copy backend/.env.example to "
+        "backend/.env and put your key in it."
+    )
+
+_client = anthropic.Anthropic(api_key=_API_KEY)
 
 _BASE_PROMPT = (PROMPTS_DIR / "system_prompt.md").read_text(encoding="utf-8")
 _schema_file = json.loads((PROMPTS_DIR / "analysis_schema.json").read_text(encoding="utf-8"))

@@ -16,9 +16,9 @@ Signals are not equally trustworthy, and the rules treat them accordingly:
               Either the strings differ or they do not. No judgement, so these
               can raise a verdict on their own.
 
-  HEURISTIC   lookalike_domain
-              A guess about intent behind a name. It will misfire on real
-              domains, so on its own it raises nothing - it only counts
+  HEURISTIC   lookalike_domain, display_name_mismatch
+              A guess about intent behind a name. These will misfire on real
+              senders, so on their own they raise nothing - they only count
               alongside an actual ask.
 """
 
@@ -26,7 +26,7 @@ ORDER = {"safe": 0, "suspicious": 1, "dangerous": 2}
 BY_RANK = {v: k for k, v in ORDER.items()}
 
 MECHANICAL_DECEPTION = {"link_text_mismatch", "punycode_domain", "reply_to_mismatch"}
-HEURISTIC_DECEPTION = {"lookalike_domain"}
+HEURISTIC_DECEPTION = {"lookalike_domain", "display_name_mismatch"}
 
 ASKS = {"credential_request", "payment_request"}
 
@@ -53,11 +53,11 @@ def _rule_hits(tactics: set[str], signals: set[str], high: set[str]) -> list[tup
             f"{', '.join(sorted(mechanical))} - the message misrepresents itself",
         ))
 
-    # A lookalike domain is a judgement call, so it needs an ask behind it.
+    # These are judgement calls, so they need an ask behind them.
     if heuristic and asks:
         hits.append((
             "suspicious",
-            f"lookalike domain alongside {', '.join(sorted(asks))}",
+            f"{', '.join(sorted(heuristic))} alongside {', '.join(sorted(asks))}",
         ))
 
     # Being steered away from anyone who could check, plus a request for money.
