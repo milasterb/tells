@@ -10,65 +10,65 @@
       "level": "dangerous",
       "reasons": [
         "link_text_mismatch alongside credential_request",
-        "lookalike domain alongside credential_request",
+        "display_name_mismatch, lookalike_domain alongside credential_request",
         "impersonation alongside a request for credentials",
         "4 high-severity tactics: credential_request, fear, impersonation, urgency"
       ],
       "raised": false
     },
-    "floor_note": "floor dangerous, model already at or above it - link_text_mismatch alongside credential_request; lookalike domain alongside credential_request; impersonation alongside a request for credentials; 4 high-severity tactics: credential_request, fear, impersonation, urgency",
+    "floor_note": "floor dangerous, model already at or above it - link_text_mismatch alongside credential_request; display_name_mismatch, lookalike_domain alongside credential_request; impersonation alongside a request for credentials; 4 high-severity tactics: credential_request, fear, impersonation, urgency",
     "missing_tactics": [],
     "extra_tactics": [],
     "bad_quotes": [],
     "confidence": "high",
     "attempts": 1,
-    "headline": "Someone is pretending to be Barclays to steal your banking login.",
+    "headline": "Someone is pretending to be Barclays to steal your online banking details.",
     "action": {
       "type": "delete_and_report",
-      "detail": "Do not click the link or reply. If you are worried about your account, open the Barclays app or type the bank's address yourself, or ring the number on the back of your bank card. You can forward the message to report@phishing.gov.uk."
+      "detail": "Do not click the link or reply. If you are worried about your account, open your bank's app or type its address yourself, or phone the number on the back of your card. Report the message to your bank as a scam, then delete it."
     },
     "analysis": {
       "language": "en",
-      "benign_reading": "Banks do send alerts about unrecognised logins, and a real one might ask you to check your account. A message on this subject is not unusual in itself.",
+      "benign_reading": "Banks do send alerts about unrecognised logins, and a genuine one might ask the customer to check their account, so a message on this subject is not unusual in itself.",
       "tactics": [
         {
           "id": "impersonation",
           "severity": "high",
           "evidence": "Barclays Fraud Prevention Team",
-          "explanation": "The message signs off as Barclays, but the sender's address is a lookalike made to resemble the bank's. It was not sent by Barclays."
+          "explanation": "The message signs off as Barclays, but the sender's address is a lookalike website name, not the bank's real one, and the display name does not match it."
         },
         {
           "id": "credential_request",
           "severity": "high",
           "evidence": "you must confirm your identity within 24 hours",
-          "explanation": "A real bank does not ask you to prove who you are by following a link in a message. The link leads to a page built to collect your details."
+          "explanation": "A real bank does not ask you to prove who you are by following a link in a message. This is how login details get collected."
         },
         {
           "id": "urgency",
           "severity": "high",
-          "evidence": "Unusual activity detected - action required within 24 hours",
-          "explanation": "The tight deadline is meant to rush you into clicking before you stop to check."
+          "evidence": "action required within 24 hours",
+          "explanation": "The tight deadline is meant to make you act before you think to check with your bank."
         },
         {
           "id": "fear",
           "severity": "high",
           "evidence": "your account will be suspended and funds held pending review",
-          "explanation": "Threatening your access to your money is meant to scare you into acting without thinking."
+          "explanation": "Threatening your money and access is meant to scare you into clicking."
         },
         {
           "id": "fear",
           "severity": "medium",
           "evidence": "Failure to act will result in permanent restriction.",
-          "explanation": "A second threat, piling on the pressure so you feel you have no time to check."
+          "explanation": "A second threat, piled on to increase the pressure."
         }
       ],
       "verdict": "dangerous",
       "confidence": "high",
-      "headline": "Someone is pretending to be Barclays to steal your banking login.",
-      "explain_simple": "This is not from your bank. The link looks like it goes to the real Barclays website, but it actually goes to a different site made to look like it. The sender's address is also a fake that only looks like Barclays. The scary talk about a login from Latvia and your money being held is there to make you panic and click. Your bank would not ask you to do this by message.",
+      "headline": "Someone is pretending to be Barclays to steal your online banking details.",
+      "explain_simple": "This message is not from your bank. The link looks like Barclays' real website, but it actually takes you to a different site, made to look like the bank's and built to collect your details. The email address is a fake that only looks like Barclays. The threats about your money and the 24-hour deadline are there to make you rush. A real bank would not do this.",
       "recommended_action": {
         "type": "delete_and_report",
-        "detail": "Do not click the link or reply. If you are worried about your account, open the Barclays app or type the bank's address yourself, or ring the number on the back of your bank card. You can forward the message to report@phishing.gov.uk."
+        "detail": "Do not click the link or reply. If you are worried about your account, open your bank's app or type its address yourself, or phone the number on the back of your card. Report the message to your bank as a scam, then delete it."
       },
       "_problems": [],
       "_attempts": 1,
@@ -77,7 +77,7 @@
         "level": "dangerous",
         "reasons": [
           "link_text_mismatch alongside credential_request",
-          "lookalike domain alongside credential_request",
+          "display_name_mismatch, lookalike_domain alongside credential_request",
           "impersonation alongside a request for credentials",
           "4 high-severity tactics: credential_request, fear, impersonation, urgency"
         ],
@@ -95,11 +95,11 @@
     "floor": {
       "level": "suspicious",
       "reasons": [
-        "lookalike domain alongside payment_request"
+        "display_name_mismatch, lookalike_domain alongside payment_request"
       ],
       "raised": false
     },
-    "floor_note": "floor suspicious, model already at or above it - lookalike domain alongside payment_request",
+    "floor_note": "floor suspicious, model already at or above it - display_name_mismatch, lookalike_domain alongside payment_request",
     "missing_tactics": [],
     "extra_tactics": [],
     "bad_quotes": [],
@@ -108,38 +108,38 @@
     "headline": "Someone is pretending to be DPD to get your card details through a fake parcel fee.",
     "action": {
       "type": "delete_and_report",
-      "detail": "Do not open the link or pay anything. If you are expecting a parcel, check its status on the real DPD website by typing the address yourself, or use the tracking details from the shop you ordered from."
+      "detail": "Do not click the link or enter any card details. If you are expecting a parcel, check its status on the real DPD website by typing the address yourself, or use the tracking details from the shop you ordered from. If you already paid or entered card details, contact your bank straight away. Report the message as a scam to your email provider."
     },
     "analysis": {
       "language": "en",
-      "benign_reading": "Couriers do sometimes contact recipients about customs charges on parcels from abroad, and a small fee with a payment link is a genuine pattern when a parcel is held at the border.",
+      "benign_reading": "Parcel carriers do sometimes ask recipients to pay a small customs or handling fee before delivering an item from abroad, and they send notices saying a delivery could not be completed.",
       "tactics": [
         {
           "id": "impersonation",
           "severity": "high",
           "evidence": "DPD Customer Service",
-          "explanation": "The message signs off as DPD, but the sender's address is a lookalike made to resemble the real company. It is not DPD."
+          "explanation": "The message signs off as the parcel company DPD, but it comes from a website address that only imitates DPD's name. It is not DPD's real address."
         },
         {
           "id": "payment_request",
           "severity": "high",
-          "evidence": "an outstanding customs charge of EUR 1.95 has not been settled",
-          "explanation": "A tiny fee is a common trick. It makes paying feel harmless, but the payment page is built to collect your card details."
+          "evidence": "Pay the fee: https://dpd-parcelservice.net/pay/GB7741092284",
+          "explanation": "It asks you to pay through a link on the imitation website. This is how card details get collected, and the tiny amount is meant to make it seem harmless."
         },
         {
           "id": "urgency",
           "severity": "medium",
           "evidence": "The parcel will be returned to sender if payment is not received within 48 hours.",
-          "explanation": "The short deadline is meant to make you pay quickly rather than stop and check."
+          "explanation": "The short deadline is meant to hurry you into paying before you stop to check whether you are even expecting a parcel."
         }
       ],
       "verdict": "dangerous",
       "confidence": "high",
       "headline": "Someone is pretending to be DPD to get your card details through a fake parcel fee.",
-      "explain_simple": "This message is not from DPD. The sender's address only looks like a DPD one, and it was made to fool you. The fee is very small so you will not think twice about paying it. But the page you would be sent to is made to copy your card details, and the criminals can then use your card. The 48-hour deadline is there to make you hurry.",
+      "explain_simple": "This message is not from DPD. The sender's web address only looks a bit like DPD's, and the name shown does not match the real address behind it. The payment page is a copy made to collect your card details. The fee is only 1.95 euros so you will not think twice, and the 48-hour deadline is there to make you hurry. Do not click the link or pay anything.",
       "recommended_action": {
         "type": "delete_and_report",
-        "detail": "Do not open the link or pay anything. If you are expecting a parcel, check its status on the real DPD website by typing the address yourself, or use the tracking details from the shop you ordered from."
+        "detail": "Do not click the link or enter any card details. If you are expecting a parcel, check its status on the real DPD website by typing the address yourself, or use the tracking details from the shop you ordered from. If you already paid or entered card details, contact your bank straight away. Report the message as a scam to your email provider."
       },
       "_problems": [],
       "_attempts": 1,
@@ -147,7 +147,7 @@
       "floor": {
         "level": "suspicious",
         "reasons": [
-          "lookalike domain alongside payment_request"
+          "display_name_mismatch, lookalike_domain alongside payment_request"
         ],
         "raised": false
       }
@@ -165,63 +165,67 @@
       "reasons": [
         "isolation alongside a request for money",
         "secrecy alongside a request for money",
-        "4 high-severity tactics: impersonation, isolation, payment_request, secrecy"
+        "3 high-severity tactics: isolation, payment_request, secrecy"
       ],
       "raised": false
     },
-    "floor_note": "floor dangerous, model already at or above it - isolation alongside a request for money; secrecy alongside a request for money; 4 high-severity tactics: impersonation, isolation, payment_request, secrecy",
-    "missing_tactics": [],
-    "extra_tactics": [],
+    "floor_note": "floor dangerous, model already at or above it - isolation alongside a request for money; secrecy alongside a request for money; 3 high-severity tactics: isolation, payment_request, secrecy",
+    "missing_tactics": [
+      "impersonation"
+    ],
+    "extra_tactics": [
+      "authority"
+    ],
     "bad_quotes": [],
     "confidence": "high",
     "attempts": 1,
-    "headline": "Someone is pretending to be your boss to get you to send them money.",
+    "headline": "This looks like a fake 'boss' message trying to get you to send money in secret.",
     "action": {
-      "type": "delete_and_report",
-      "detail": "Do not reply and do not send any money. If you want to be sure, contact Milan using his usual work phone number or in person, not through this message. Tell a colleague or your manager about it, and report the email to your IT or finance team."
+      "type": "do_not_interact",
+      "detail": "Do not reply and do not send any money. If you want to be sure, contact the real Milan through a number or work email you already have, or ask another manager or your finance team in person. Report the message to your IT or finance contact."
     },
     "analysis": {
       "language": "en",
-      "benign_reading": "An executive could in principle ask a colleague for an urgent payment during a confidential deal, and busy executives do sometimes email from a phone. A real request like this, though, would come from the company's own email and follow the normal payment approval process.",
+      "benign_reading": "A senior colleague or business owner could genuinely need an urgent payment made during a confidential deal, and might write from a personal account or phone while travelling or in meetings.",
       "tactics": [
-        {
-          "id": "impersonation",
-          "severity": "high",
-          "evidence": "Milan Sterba",
-          "explanation": "The name shown as the sender does not match the actual email address, which is a free personal Gmail account. Someone is using a manager's name to look like they are the boss."
-        },
         {
           "id": "isolation",
           "severity": "high",
           "evidence": "I'm in back-to-back meetings all afternoon so I can't take calls.",
-          "explanation": "This stops you from phoning to check that the request is real. A genuine request would survive a quick phone call."
+          "explanation": "This stops you from phoning to check that the request is real. A genuine manager could still be reached by a short call or a text to their known number."
         },
         {
           "id": "secrecy",
           "severity": "high",
           "evidence": "Please don't discuss this with anyone on the team yet, the deal isn't public and I don't want it leaking before Monday.",
-          "explanation": "You are told not to speak to colleagues, who are the very people who could spot that this is a fake."
+          "explanation": "You are told to tell nobody, which means nobody can warn you that something is wrong."
         },
         {
           "id": "urgency",
           "severity": "medium",
           "evidence": "I need a supplier deposit moved today - EUR 14,800.",
-          "explanation": "The deadline of today leaves no time to stop and check."
+          "explanation": "Having to pay a large amount today leaves you little time to stop and check."
         },
         {
           "id": "payment_request",
           "severity": "high",
           "evidence": "Can you handle the transfer? Reply here and I'll send the account details.",
-          "explanation": "You are asked to send a large sum of money to bank details supplied later by message, outside any normal approval process."
+          "explanation": "You are asked to send a large sum to account details that will arrive later by message, with no invoice or normal approval process."
+        },
+        {
+          "id": "authority",
+          "severity": "medium",
+          "evidence": "We're closing an acquisition",
+          "explanation": "A big, important-sounding deal is used to make the request seem too weighty to question."
         }
       ],
       "verdict": "dangerous",
       "confidence": "high",
-      "headline": "Someone is pretending to be your boss to get you to send them money.",
-      "explain_simple": "The name says Milan Sterba, but the email comes from an ordinary Gmail address, not the company's. The sender asks for nearly fifteen thousand euros today. They say not to phone and not to tell anyone. That is how this trick works: it keeps you away from the people who would say 'that's not him'. A real boss would not mind you checking.",
+      "headline": "This looks like a fake 'boss' message trying to get you to send money in secret.",
+      "explain_simple": "Someone is writing as if they were a senior person at your work and asking you to send nearly fifteen thousand euros today. They say they can't take calls and that you must tell nobody. Those two things are there so you cannot check with anyone. A real manager would not mind a quick check. The message also comes from a free personal email address, not a work one. This is a very common trick to steal money from businesses.",
       "recommended_action": {
-        "type": "delete_and_report",
-        "detail": "Do not reply and do not send any money. If you want to be sure, contact Milan using his usual work phone number or in person, not through this message. Tell a colleague or your manager about it, and report the email to your IT or finance team."
+        "type": "do_not_interact",
+        "detail": "Do not reply and do not send any money. If you want to be sure, contact the real Milan through a number or work email you already have, or ask another manager or your finance team in person. Report the message to your IT or finance contact."
       },
       "_problems": [],
       "_attempts": 1,
@@ -231,7 +235,7 @@
         "reasons": [
           "isolation alongside a request for money",
           "secrecy alongside a request for money",
-          "4 high-severity tactics: impersonation, isolation, payment_request, secrecy"
+          "3 high-severity tactics: isolation, payment_request, secrecy"
         ],
         "raised": false
       }
@@ -248,12 +252,12 @@
       "level": "dangerous",
       "reasons": [
         "punycode_domain alongside credential_request",
-        "lookalike domain alongside credential_request",
+        "lookalike_domain alongside credential_request",
         "impersonation alongside a request for credentials"
       ],
       "raised": false
     },
-    "floor_note": "floor dangerous, model already at or above it - punycode_domain alongside credential_request; lookalike domain alongside credential_request; impersonation alongside a request for credentials",
+    "floor_note": "floor dangerous, model already at or above it - punycode_domain alongside credential_request; lookalike_domain alongside credential_request; impersonation alongside a request for credentials",
     "missing_tactics": [],
     "extra_tactics": [],
     "bad_quotes": [],
@@ -262,44 +266,44 @@
     "headline": "Someone is pretending to be the tax office to get your bank details.",
     "action": {
       "type": "delete_and_report",
-      "detail": "Do not click the link or enter any details. If you want to check whether you are owed a refund, type the official government website address into your browser yourself or use the HMRC app. You can forward the message to phishing@hmrc.gov.uk."
+      "detail": "Do not click the link or enter any details. If you want to check whether you are owed a refund, type the official government website address yourself or use the official tax app. Then report the message as a scam to your email provider or the relevant authority."
     },
     "analysis": {
       "language": "en",
-      "benign_reading": "HMRC does contact people about tax refunds, so a message on this subject is not unusual in itself. A genuine one would come from an official gov.uk address and would not ask for bank details through a link.",
+      "benign_reading": "HMRC does sometimes tell people they are owed a tax refund, so a message on this subject is not unusual in itself.",
       "tactics": [
         {
           "id": "impersonation",
           "severity": "high",
           "evidence": "HM Revenue & Customs",
-          "explanation": "The message presents itself as the UK tax authority, but it comes from a look-alike address that is not HMRC's. The link goes to a disguised web address made to look like an official one."
-        },
-        {
-          "id": "credential_request",
-          "severity": "high",
-          "evidence": "submit your bank details through the secure portal below",
-          "explanation": "HMRC does not ask you to type in your bank details through a link in a message. This is how scammers collect them."
-        },
-        {
-          "id": "urgency",
-          "severity": "medium",
-          "evidence": "Refunds not claimed within 10 working days are returned to the Treasury.",
-          "explanation": "The short deadline is meant to hurry you into acting before you stop to check."
+          "explanation": "The message presents itself as the UK tax authority. The sender's address only imitates HMRC's name, and the link goes to a website with disguised lettering. It is not from HMRC."
         },
         {
           "id": "reward",
           "severity": "medium",
           "evidence": "You are eligible for a tax refund of GBP 612.40",
-          "explanation": "The offer of free money is the bait to get you to hand over your bank details."
+          "explanation": "Offering a specific sum of free money is bait to get you to click without checking."
+        },
+        {
+          "id": "credential_request",
+          "severity": "high",
+          "evidence": "submit your bank details through the secure portal below",
+          "explanation": "A real tax office does not ask you to type your bank details into a page reached from a message."
+        },
+        {
+          "id": "urgency",
+          "severity": "medium",
+          "evidence": "Refunds not claimed within 10 working days are returned to the Treasury.",
+          "explanation": "The deadline is meant to hurry you so you do not stop to check whether the message is real."
         }
       ],
       "verdict": "dangerous",
       "confidence": "high",
       "headline": "Someone is pretending to be the tax office to get your bank details.",
-      "explain_simple": "This message is not from the tax office. The sender's address and the web link are fakes, made to look like the real thing. The link goes to a copy of a website that will collect your bank details. The offer of a refund is the bait, and the ten-day deadline is there to make you hurry. The real tax office does not ask for your bank details this way.",
+      "explain_simple": "This is not from the tax office. The sender's email address is made to look like theirs, but it is a copy. The link goes to a fake website that uses lookalike letters to fool you. The offer of free money and the ten-day deadline are there to make you hurry and type in your bank details. Once the thieves have those, they can take money from your account.",
       "recommended_action": {
         "type": "delete_and_report",
-        "detail": "Do not click the link or enter any details. If you want to check whether you are owed a refund, type the official government website address into your browser yourself or use the HMRC app. You can forward the message to phishing@hmrc.gov.uk."
+        "detail": "Do not click the link or enter any details. If you want to check whether you are owed a refund, type the official government website address yourself or use the official tax app. Then report the message as a scam to your email provider or the relevant authority."
       },
       "_problems": [],
       "_attempts": 1,
@@ -308,7 +312,7 @@
         "level": "dangerous",
         "reasons": [
           "punycode_domain alongside credential_request",
-          "lookalike domain alongside credential_request",
+          "lookalike_domain alongside credential_request",
           "impersonation alongside a request for credentials"
         ],
         "raised": false
@@ -320,7 +324,7 @@
     "label": "phishing",
     "want_verdict": "dangerous",
     "got_verdict": "dangerous",
-    "model_verdict": "dangerous",
+    "model_verdict": "suspicious",
     "verdict_ok": true,
     "floor": {
       "level": "dangerous",
@@ -328,10 +332,11 @@
         "reply_to_mismatch alongside payment_request",
         "isolation alongside a request for money"
       ],
-      "raised": false
+      "raised": true
     },
-    "floor_note": "floor dangerous, model already at or above it - reply_to_mismatch alongside payment_request; isolation alongside a request for money",
+    "floor_note": "raised dangerous over the model's suspicious - reply_to_mismatch alongside payment_request; isolation alongside a request for money",
     "missing_tactics": [
+      "ai_generated_polish",
       "impersonation"
     ],
     "extra_tactics": [
@@ -339,60 +344,54 @@
       "urgency"
     ],
     "bad_quotes": [],
-    "confidence": "high",
+    "confidence": "medium",
     "attempts": 1,
-    "headline": "This looks like a trick to make you pay a real invoice into a criminal's bank account.",
+    "headline": "A message asking you to pay a bill into a new bank account, with replies going somewhere else.",
     "action": {
-      "type": "do_not_interact",
-      "detail": "Do not reply, open the attachment or pay into the new account. If you want to check the invoice, phone Nordwerk using a number from an earlier invoice, your contract or their official website, and keep paying into the bank details you already have until they confirm. Tell your bank or finance team if you are unsure."
+      "type": "verify_independently",
+      "detail": "Do not pay into the new account yet. Phone Nordwerk Industrietechnik using a number from an earlier invoice, your contract or their official website, not from this message, and ask them to confirm the bank change. Do not reply to this email, and do not rely on the attached details until they confirm."
     },
     "analysis": {
       "language": "en",
-      "benign_reading": "Companies do sometimes change banks, and a supplier's accounts department might send a notice of new remittance details alongside an outstanding invoice. The sender's address matches the company name shown.",
+      "benign_reading": "Companies do change banks, and a supplier's accounts department might tell customers by email, perhaps using an outside billing firm to handle replies.",
       "tactics": [
         {
           "id": "payment_request",
           "severity": "high",
-          "evidence": "our remittance details have been updated with immediate effect. We kindly request that all outstanding and future payments be directed to the new account specified below.",
-          "explanation": "The message asks you to send money to a different bank account, and the request comes only by message with no other confirmation. This is the classic way invoices get redirected to a thief."
+          "evidence": "We kindly request that all outstanding and future payments be directed to the new account specified below.",
+          "explanation": "The message asks you to send money to a different bank account, and the request arrives by email alone with nothing to confirm it. This is the most common way invoice payments get stolen. The message also says the details are 'below', but then says they are 'attached', which is sloppy for a real accounts department."
         },
         {
           "id": "isolation",
-          "severity": "high",
+          "severity": "medium",
           "evidence": "Should you require any clarification, please do not hesitate to reply to this message.",
-          "explanation": "The only way offered to ask questions is by replying, and replies would go to a different address from the one that sent it. No phone number is given, so you are steered away from checking with the real company."
+          "explanation": "If you reply, your answer goes to a different address from the one that sent the message, not to the company's own email. That keeps any questions with whoever wrote this and away from the company's real staff."
         },
         {
           "id": "urgency",
           "severity": "low",
-          "evidence": "with immediate effect",
-          "explanation": "Pushing the new details into use straight away leaves little time to check them first."
-        },
-        {
-          "id": "ai_generated_polish",
-          "severity": "low",
-          "evidence": "Dear Valued Partner,",
-          "explanation": "The wording is formal and generic, with no name, no contact person and no phone number. It reads like a template rather than a message from someone who knows you."
+          "evidence": "our remittance details have been updated with immediate effect",
+          "explanation": "Saying the change applies immediately nudges you to pay to the new account straight away, before you have checked."
         }
       ],
       "verdict": "dangerous",
-      "confidence": "high",
-      "headline": "This looks like a trick to make you pay a real invoice into a criminal's bank account.",
-      "explain_simple": "The message says the company has a new bank account and asks you to pay a bill of 8,430 euros into it. That is a common scam. If you reply, your answer goes to a different address from the one the message came from, so the company you know would never see it. There is no phone number to check with. Do not pay into the new account.",
+      "confidence": "medium",
+      "headline": "A message asking you to pay a bill into a new bank account, with replies going somewhere else.",
+      "explain_simple": "This message says a supplier has changed bank accounts and asks you to pay an unpaid bill of 8,430 euros into the new one. Criminals often send exactly this kind of message to redirect payments to themselves. Here, if you hit reply, your answer would go to a different address from the one the message came from. That is a warning sign. It could still be real, but you should not pay into a new account until you have checked with the company in another way.",
       "recommended_action": {
-        "type": "do_not_interact",
-        "detail": "Do not reply, open the attachment or pay into the new account. If you want to check the invoice, phone Nordwerk using a number from an earlier invoice, your contract or their official website, and keep paying into the bank details you already have until they confirm. Tell your bank or finance team if you are unsure."
+        "type": "verify_independently",
+        "detail": "Do not pay into the new account yet. Phone Nordwerk Industrietechnik using a number from an earlier invoice, your contract or their official website, not from this message, and ask them to confirm the bank change. Do not reply to this email, and do not rely on the attached details until they confirm."
       },
       "_problems": [],
       "_attempts": 1,
-      "model_verdict": "dangerous",
+      "model_verdict": "suspicious",
       "floor": {
         "level": "dangerous",
         "reasons": [
           "reply_to_mismatch alongside payment_request",
           "isolation alongside a request for money"
         ],
-        "raised": false
+        "raised": true
       }
     }
   },
@@ -404,71 +403,63 @@
     "model_verdict": "dangerous",
     "verdict_ok": true,
     "floor": {
-      "level": "dangerous",
+      "level": "suspicious",
       "reasons": [
-        "link_text_mismatch alongside credential_request",
-        "lookalike domain alongside credential_request",
-        "impersonation alongside a request for credentials"
+        "link_text_mismatch - the message misrepresents itself"
       ],
       "raised": false
     },
-    "floor_note": "floor dangerous, model already at or above it - link_text_mismatch alongside credential_request; lookalike domain alongside credential_request; impersonation alongside a request for credentials",
-    "missing_tactics": [],
+    "floor_note": "floor suspicious, model already at or above it - link_text_mismatch - the message misrepresents itself",
+    "missing_tactics": [
+      "credential_request"
+    ],
     "extra_tactics": [],
     "bad_quotes": [],
     "confidence": "high",
     "attempts": 1,
-    "headline": "Someone is pretending to be Microsoft to steal your password.",
+    "headline": "Someone is pretending to be Microsoft to steal your account password.",
     "action": {
       "type": "delete_and_report",
-      "detail": "Do not click the link. If you want to check your account, type account.microsoft.com into your browser yourself or open the Microsoft app, and look at recent activity there."
+      "detail": "Do not click the link. If you are worried about your account, type Microsoft's address into your browser yourself, or open the official app, and check your recent sign-ins there. Then delete this message and report it as a scam through your email program."
     },
     "analysis": {
       "language": "en",
-      "benign_reading": "Microsoft and other providers do send automatic alerts about sign-ins from unfamiliar places, and such a message would normally tell you to check your account and say no action is needed if it was you.",
+      "benign_reading": "Microsoft and other providers do send alerts when someone signs in from a new place, and this one even says no action is needed if it was you. A message like this would not be unusual in itself.",
       "tactics": [
         {
           "id": "impersonation",
           "severity": "high",
           "evidence": "Microsoft account team",
-          "explanation": "The message signs off and appears as Microsoft, but it comes from a lookalike address (microsoft-accountservices.com), not Microsoft's real one."
+          "explanation": "The message is signed as Microsoft, but the sender's address is a copy-cat website name, not Microsoft's real one. Microsoft did not send this."
         },
         {
           "id": "fear",
           "severity": "medium",
           "evidence": "your password may be compromised",
-          "explanation": "Saying a stranger may have broken into your account is meant to alarm you so you click without checking."
+          "explanation": "Saying a stranger in another country may have your password is meant to frighten you into clicking without thinking."
         },
         {
           "id": "urgency",
           "severity": "medium",
           "evidence": "Secure your account immediately",
-          "explanation": "Telling you to act right now is meant to stop you from pausing and checking for yourself."
-        },
-        {
-          "id": "credential_request",
-          "severity": "high",
-          "evidence": "https://account.microsoft.com/security",
-          "explanation": "The link is written as Microsoft's real address, but it actually leads to a different website with a login page, which is made to collect your password."
+          "explanation": "Pushing you to act straight away leaves no time to stop and check whether the message is real."
         }
       ],
       "verdict": "dangerous",
       "confidence": "high",
-      "headline": "Someone is pretending to be Microsoft to steal your password.",
-      "explain_simple": "This message is not from Microsoft. The sender's address only looks like Microsoft's. The link in the message says it goes to Microsoft, but it really goes to a different website with a fake login page. That page is there to catch your password. The scary news about a sign-in from Nigeria is there to make you hurry. Your account is not necessarily in any danger, but this message is.",
+      "headline": "Someone is pretending to be Microsoft to steal your account password.",
+      "explain_simple": "This message is not from Microsoft. The link looks like Microsoft's real website, but it actually takes you to a different website made to look like a Microsoft sign-in page. If you typed your password there, the crooks would get it. The scary news about a sign-in from Nigeria is there to make you hurry. The sender's address is also a fake that only looks like Microsoft's.",
       "recommended_action": {
         "type": "delete_and_report",
-        "detail": "Do not click the link. If you want to check your account, type account.microsoft.com into your browser yourself or open the Microsoft app, and look at recent activity there."
+        "detail": "Do not click the link. If you are worried about your account, type Microsoft's address into your browser yourself, or open the official app, and check your recent sign-ins there. Then delete this message and report it as a scam through your email program."
       },
       "_problems": [],
       "_attempts": 1,
       "model_verdict": "dangerous",
       "floor": {
-        "level": "dangerous",
+        "level": "suspicious",
         "reasons": [
-          "link_text_mismatch alongside credential_request",
-          "lookalike domain alongside credential_request",
-          "impersonation alongside a request for credentials"
+          "link_text_mismatch - the message misrepresents itself"
         ],
         "raised": false
       }
@@ -494,57 +485,57 @@
     "extra_tactics": [],
     "bad_quotes": [],
     "confidence": "high",
-    "attempts": 3,
-    "headline": "This is a fake prize message trying to get your personal details and a copy of your ID.",
+    "attempts": 1,
+    "headline": "This is a fake prize message trying to get your personal details and ID.",
     "action": {
       "type": "delete_and_report",
-      "detail": "Do not reply and do not send any personal details or ID. Delete the message and mark it as spam or phishing in your email program. If you have already sent your ID, contact your national identity or fraud authority and your bank."
+      "detail": "Do not reply and do not send any documents or details. Delete the message and report it as junk or scam in your email program. If you have already sent your ID, contact your local police or identity-protection service and tell your bank."
     },
     "analysis": {
       "language": "en",
-      "benign_reading": "Some genuine companies run prize draws and email winners, and a real promotion might ask for details to check who won. But that would only apply if the reader had actually entered a competition.",
+      "benign_reading": "A genuine prize promotion or loyalty draw run by a company the reader actually entered, which would notify winners and need some details to pay out the prize.",
       "tactics": [
         {
           "id": "reward",
           "severity": "high",
           "evidence": "You have been awarded EUR 50,000.00.",
-          "explanation": "A large prize you never entered for is the bait. It is meant to make you excited enough to stop questioning it."
+          "explanation": "A large prize for a draw you most likely never entered is bait to make you lower your guard."
         },
         {
           "id": "urgency",
           "severity": "high",
           "evidence": "Unclaimed awards are redistributed after 72 hours.",
-          "explanation": "The short deadline is meant to rush you into replying before you have time to check or ask anyone."
+          "explanation": "The short deadline is there to push you to reply quickly, before you have time to check or ask anyone."
         },
         {
           "id": "urgency",
           "severity": "medium",
           "evidence": "This is the THIRD and FINAL notification.",
-          "explanation": "Claiming there were earlier notices adds pressure and makes it feel as if you are about to lose out."
+          "explanation": "Claiming earlier notices were sent adds pressure and the feeling that you are about to lose out."
         },
         {
           "id": "credential_request",
           "severity": "high",
           "evidence": "we require: full name, date of birth, address, and a copy of photo ID for verification purposes.",
-          "explanation": "These are exactly the details a criminal needs to steal your identity. A real prize would not be handed out by collecting your ID over email."
+          "explanation": "These details are exactly what a criminal needs to steal your identity. A real prize payer would not ask for them by simply replying to an email."
         },
         {
           "id": "secrecy",
           "severity": "medium",
           "evidence": "Do not share this reference number with anyone",
-          "explanation": "Being told to keep it to yourself stops other people from telling you it is a scam."
+          "explanation": "Being told to keep it to yourself stops you from showing it to someone who could spot the scam."
         }
       ],
       "verdict": "dangerous",
       "confidence": "high",
-      "headline": "This is a fake prize message trying to get your personal details and a copy of your ID.",
-      "explain_simple": "You have not won anything. Nobody gives away 50,000 euros to an email address in a draw you never entered. The message wants your name, birth date, address and a photo of your ID. With those, a criminal can pretend to be you and open accounts or take out loans in your name. If you reply, your answer would also go to a different address from the one that sent the message, which is a sign someone is hiding who they are. The 72-hour deadline and the order to keep the number secret are there to stop you from stopping to think or asking someone you trust.",
+      "headline": "This is a fake prize message trying to get your personal details and ID.",
+      "explain_simple": "You have not won anything. Scammers send messages like this to many people, hoping someone will reply. The big prize and the 72-hour deadline are meant to make you hurry. They ask for your name, birth date, address and a photo of your ID. With those, they can pretend to be you or open accounts in your name. Your reply would also go to a different address from the one that sent the message, which is a sign the sender is hiding who they are. Real prizes are never handed out this way.",
       "recommended_action": {
         "type": "delete_and_report",
-        "detail": "Do not reply and do not send any personal details or ID. Delete the message and mark it as spam or phishing in your email program. If you have already sent your ID, contact your national identity or fraud authority and your bank."
+        "detail": "Do not reply and do not send any documents or details. Delete the message and report it as junk or scam in your email program. If you have already sent your ID, contact your local police or identity-protection service and tell your bank."
       },
       "_problems": [],
-      "_attempts": 3,
+      "_attempts": 1,
       "model_verdict": "dangerous",
       "floor": {
         "level": "dangerous",
@@ -560,91 +551,67 @@
     "id": "p08",
     "label": "phishing",
     "want_verdict": "dangerous",
-    "got_verdict": "dangerous",
-    "model_verdict": "dangerous",
-    "verdict_ok": true,
+    "got_verdict": "suspicious",
+    "model_verdict": "suspicious",
+    "verdict_ok": false,
     "floor": {
-      "level": "dangerous",
-      "reasons": [
-        "lookalike domain alongside credential_request",
-        "impersonation alongside a request for credentials",
-        "3 high-severity tactics: credential_request, impersonation, urgency"
-      ],
+      "level": "safe",
+      "reasons": [],
       "raised": false
     },
-    "floor_note": "floor dangerous, model already at or above it - lookalike domain alongside credential_request; impersonation alongside a request for credentials; 3 high-severity tactics: credential_request, impersonation, urgency",
-    "missing_tactics": [],
+    "floor_note": "",
+    "missing_tactics": [
+      "impersonation",
+      "isolation"
+    ],
     "extra_tactics": [
-      "authority",
       "fear"
     ],
     "bad_quotes": [],
-    "confidence": "high",
+    "confidence": "medium",
     "attempts": 1,
-    "headline": "Someone is pretending to be your IT department to steal your password.",
+    "headline": "This password warning could be real, but it has the shape of a common password-stealing trick.",
     "action": {
-      "type": "delete_and_report",
-      "detail": "Do not click the link or type any password. If you are worried about your account, go to your organisation's website by typing the address yourself, or ask your real IT desk in person or on a number you already know. If you already entered your password, change it at once on the real site and tell your IT team."
+      "type": "verify_independently",
+      "detail": "Do not use the link in this message. Open your school or workplace's website by typing the address yourself, or use a bookmark you already had, and see whether it asks you to change your password. You can also phone or visit the IT helpdesk using the contact details from your official site or your student or staff card, and ask whether this notice is genuine. If you already typed your password, change it right away and tell the IT helpdesk."
     },
     "analysis": {
       "language": "en",
-      "benign_reading": "Schools, universities and companies do send password expiry notices from their IT department, and a reminder to renew a password before a deadline can be genuine.",
+      "benign_reading": "A school or university IT department could plausibly send this. Institutions do make staff and students change passwords on a schedule, and the link goes to the same website the email was sent from.",
       "tactics": [
         {
-          "id": "impersonation",
-          "severity": "high",
-          "evidence": "IT Helpdesk",
-          "explanation": "The message presents itself as your organisation's IT team, but the sending address is a lookalike that imitates a real organisation and is not the real one."
-        },
-        {
-          "id": "credential_request",
-          "severity": "high",
-          "evidence": "Please enter your current password followed by your new password.",
-          "explanation": "Asking for your current password through a link in a message is how passwords get stolen. A real IT team does not need your old password to set a new one."
-        },
-        {
           "id": "urgency",
-          "severity": "high",
+          "severity": "medium",
           "evidence": "Your password expires at 23:59 today.",
-          "explanation": "The tight deadline is meant to make you act before you stop to check with anyone."
+          "explanation": "A same-day deadline leaves you little time to stop and check whether the message is real."
         },
         {
           "id": "fear",
           "severity": "medium",
           "evidence": "Accounts that are not revalidated will be locked and require in-person reactivation.",
-          "explanation": "The threat of being locked out and having to go in person is meant to scare you into hurrying."
+          "explanation": "The threat of losing access and having to go in person is meant to push you to act quickly."
         },
         {
-          "id": "authority",
-          "severity": "low",
-          "evidence": "all staff and student passwords must be revalidated",
-          "explanation": "Calling it mandatory and part of official maintenance adds pressure to obey without questioning."
-        },
-        {
-          "id": "isolation",
+          "id": "credential_request",
           "severity": "medium",
-          "evidence": "Do not reply to this message.",
-          "explanation": "This closes off the easy way to ask whether the message is real, leaving the link as the only option."
+          "evidence": "Please enter your current password followed by your new password.",
+          "explanation": "You are asked to type your password into a page reached from a message. If the page is not genuine, whoever runs it now has your password."
         }
       ],
-      "verdict": "dangerous",
-      "confidence": "high",
-      "headline": "Someone is pretending to be your IT department to steal your password.",
-      "explain_simple": "This is not from your real IT team. The address it was sent from is a copy made to look official, but it belongs to someone else. The link leads to a page that will collect your old and new passwords. The deadline and the threat of being locked out are there to make you hurry. A real IT team would not ask for your old password this way.",
+      "verdict": "suspicious",
+      "confidence": "medium",
+      "headline": "This password warning could be real, but it has the shape of a common password-stealing trick.",
+      "explain_simple": "The message says your password runs out tonight and your account will be locked. It then asks you to type your old and new password into a web page. Real IT departments do sometimes send notices like this. But thieves send almost identical ones, because the hurry makes people type their password without thinking. The message is also addressed to \"Dear User\", so it does not even use your name. From the message alone we cannot tell which kind it is, so check before you type anything.",
       "recommended_action": {
-        "type": "delete_and_report",
-        "detail": "Do not click the link or type any password. If you are worried about your account, go to your organisation's website by typing the address yourself, or ask your real IT desk in person or on a number you already know. If you already entered your password, change it at once on the real site and tell your IT team."
+        "type": "verify_independently",
+        "detail": "Do not use the link in this message. Open your school or workplace's website by typing the address yourself, or use a bookmark you already had, and see whether it asks you to change your password. You can also phone or visit the IT helpdesk using the contact details from your official site or your student or staff card, and ask whether this notice is genuine. If you already typed your password, change it right away and tell the IT helpdesk."
       },
       "_problems": [],
       "_attempts": 1,
-      "model_verdict": "dangerous",
+      "model_verdict": "suspicious",
       "floor": {
-        "level": "dangerous",
-        "reasons": [
-          "lookalike domain alongside credential_request",
-          "impersonation alongside a request for credentials",
-          "3 high-severity tactics: credential_request, impersonation, urgency"
-        ],
+        "level": "safe",
+        "reasons": [],
         "raised": false
       }
     }
@@ -667,47 +634,47 @@
     "bad_quotes": [],
     "confidence": "medium",
     "attempts": 1,
-    "headline": "An investment offer with a Friday deadline from someone you may or may not have met.",
+    "headline": "A friendly investment pitch with a big return and a Friday deadline. Check it before you reply.",
     "action": {
       "type": "verify_independently",
-      "detail": "Ask yourself whether you really spoke with a Lena Hoffmann at that event. If you are unsure, ask the event organisers. Look up Meridian Digital Assets yourself, not through anything in this message, and check that your country's financial regulator lists them as authorised. Do not open the attachment or pay anything until you have done this. The Friday deadline is not a reason to hurry."
+      "detail": "First, ask yourself whether you really spoke with a Lena Hoffmann at that event, and check with the organisers if you are unsure. Then look up Meridian Digital Assets in your country's official financial regulator register, and find their phone number yourself rather than using one from this message. Do not open the attachment, pay anything, or share bank details until both checks come out clean."
     },
     "analysis": {
       "language": "en",
-      "benign_reading": "A fund representative who really did meet Milan at an IEEE event and is following up, as people in finance often do, with details of an investment product and a prospectus.",
+      "benign_reading": "A fund representative who met Milan at a conference and is sending a genuine follow-up about an investment product. Salespeople do send this kind of message after events, and a deadline for a fund allocation is not unusual in itself.",
       "tactics": [
         {
           "id": "ai_generated_polish",
-          "severity": "low",
+          "severity": "medium",
           "evidence": "your points on sensor fusion were genuinely thought-provoking",
-          "explanation": "Praise for your specific work builds trust before the sales pitch. It is also easy to write about anyone whose talk is public. It proves nothing about whether you actually spoke."
+          "explanation": "Specific praise for your work builds warmth and trust before the sales pitch. If you don't clearly remember meeting this person, the friendliness is doing the job that a real relationship would normally do."
         },
         {
           "id": "reward",
           "severity": "medium",
           "evidence": "Our Q3 return was 23.4% net",
-          "explanation": "A very high return is the bait. Real investments with returns like this carry serious risk, and scams often use such figures to tempt people."
+          "explanation": "A very high return is the bait. Real investments cannot promise numbers like this, and unusually high returns are the most common lure in investment scams."
         },
         {
           "id": "urgency",
           "severity": "medium",
           "evidence": "before it closes on Friday",
-          "explanation": "A short deadline, together with the 'limited allocation' wording, pushes you to decide before you have time to check the firm or ask someone you trust."
+          "explanation": "A short deadline, together with the 'small number of referred participants', is meant to make you decide before you have time to check who they are."
         },
         {
           "id": "payment_request",
-          "severity": "medium",
-          "evidence": "Minimum entry is EUR 2,500",
-          "explanation": "The message asks you to put money in. Starting with a modest sum is a common way to get a first payment, after which larger amounts are asked for."
+          "severity": "low",
+          "evidence": "this is about building the relationship rather than the ticket size",
+          "explanation": "Starting with a small amount makes it easy to say yes. Scams of this type often begin small and then ask for more once you have paid in."
         }
       ],
       "verdict": "suspicious",
       "confidence": "medium",
-      "headline": "An investment offer with a Friday deadline from someone you may or may not have met.",
-      "explain_simple": "This person says they met you at an event and now wants you to put money into their fund. They praise your talk, promise a high return and say the offer ends on Friday. A real person could write this, but so could a scammer who found your talk online. Nothing here proves a trick, but the mix of flattery, big returns and a deadline is how investment scams often work. Don't send any money until you have checked who they are.",
+      "headline": "A friendly investment pitch with a big return and a Friday deadline. Check it before you reply.",
+      "explain_simple": "This person is offering you a chance to put money into a fund that she says earned 23.4% in three months. She starts by praising your talk and then adds a deadline. That is a common way for investment scams to begin. She may be a real salesperson, and we cannot tell from the message alone. But warm flattery, a very high return and a closing date are all reasons to slow down. Do not send any money or reply with personal details until you have checked who she is.",
       "recommended_action": {
         "type": "verify_independently",
-        "detail": "Ask yourself whether you really spoke with a Lena Hoffmann at that event. If you are unsure, ask the event organisers. Look up Meridian Digital Assets yourself, not through anything in this message, and check that your country's financial regulator lists them as authorised. Do not open the attachment or pay anything until you have done this. The Friday deadline is not a reason to hurry."
+        "detail": "First, ask yourself whether you really spoke with a Lena Hoffmann at that event, and check with the organisers if you are unsure. Then look up Meridian Digital Assets in your country's official financial regulator register, and find their phone number yourself rather than using one from this message. Do not open the attachment, pay anything, or share bank details until both checks come out clean."
       },
       "_problems": [],
       "_attempts": 1,
@@ -746,50 +713,50 @@
     "headline": "Someone is pretending to be your mum to get you to send money.",
     "action": {
       "type": "do_not_interact",
-      "detail": "Do not send any money or reply. Ring your mum on the number you have always used, or ask your dad or another relative whether she is all right. If she really is in trouble, they will know."
+      "detail": "Do not send any money and do not wait for the account details. Phone your mum on her usual number, or ask your dad or another relative whether she is okay. If you cannot reach her, ask them to try for you. Do not reply to this message. Report it to your email provider as a scam."
     },
     "analysis": {
       "language": "en",
-      "benign_reading": "A parent whose phone broke could really write from a borrowed phone or a new email address and ask their grown child for help with an urgent bill. People do this, and the casual spelling fits a rushed message.",
+      "benign_reading": "A parent whose phone broke, texting their son from a borrowed phone because they are stuck and need help paying for something. It's an everyday situation, and it's the story this kind of message is built to imitate.",
       "tactics": [
         {
           "id": "impersonation",
           "severity": "high",
           "evidence": "Milan its mum",
-          "explanation": "The sender claims to be your mother, but the name shown does not match the email address it actually came from. Anyone can type 'it's mum' in a message."
+          "explanation": "The sender says they are your mother but offers nothing to prove it. They are writing from a new, unfamiliar contact instead of her usual number. Anyone can type 'it's mum'."
         },
         {
           "id": "isolation",
           "severity": "high",
-          "evidence": "so dont ring this number",
-          "explanation": "This stops you from doing the one thing that would quickly show whether it is really her: phoning her."
+          "evidence": "dont ring this number",
+          "explanation": "The one quick way to check this is to call, and you are told not to. A real parent on a borrowed phone would normally be glad for you to ring."
         },
         {
           "id": "secrecy",
           "severity": "high",
-          "evidence": "Please dont tell your dad, he will only worry and you know what hes like about money.",
-          "explanation": "Asking you to keep it from another family member means nobody else can say 'that doesn't sound right'."
+          "evidence": "Please dont tell your dad",
+          "explanation": "Keeping this from your dad removes the other person who could say right away whether it's true."
         },
         {
           "id": "urgency",
           "severity": "medium",
-          "evidence": "Can you send it now?",
-          "explanation": "Pushing you to pay straight away leaves no time to stop and check."
+          "evidence": "they wont release the paperwork without a payment today",
+          "explanation": "The 'today' deadline is meant to make you send money before you have time to check."
         },
         {
           "id": "payment_request",
           "severity": "high",
-          "evidence": "Its 9,400 CZK.",
-          "explanation": "The message asks for a specific sum of money, to be sent to an account you have not yet been given, with a promise to pay it back."
+          "evidence": "Can you send it now? ill message the account in a minute.",
+          "explanation": "You are asked to agree to send a large sum straight away, with the account details to follow. The money is the whole point of the message."
         }
       ],
       "verdict": "dangerous",
       "confidence": "high",
       "headline": "Someone is pretending to be your mum to get you to send money.",
-      "explain_simple": "This message says it is from your mum, but the name on it does not match the email address it came from. It says her phone is broken, so you cannot ring her. It asks you to keep it secret from your dad. It wants money today. Those are the usual steps of a trick where a stranger pretends to be a family member. Together they stop you from checking with anyone who could tell you the truth.",
+      "explain_simple": "This looks like a well-known trick. A stranger pretends to be your mother and says her phone is broken, so you can't ring her. Then they ask for money quickly and tell you to keep it from your dad. Those three things together are what a scammer needs: you can't check, nobody else finds out, and you have no time to think. A real mum in trouble would be happy for you to phone her or talk to your dad.",
       "recommended_action": {
         "type": "do_not_interact",
-        "detail": "Do not send any money or reply. Ring your mum on the number you have always used, or ask your dad or another relative whether she is all right. If she really is in trouble, they will know."
+        "detail": "Do not send any money and do not wait for the account details. Phone your mum on her usual number, or ask your dad or another relative whether she is okay. If you cannot reach her, ask them to try for you. Do not reply to this message. Report it to your email provider as a scam."
       },
       "_problems": [],
       "_attempts": 1,
@@ -826,19 +793,19 @@
     "headline": "This looks like a normal invoice from a supplier.",
     "action": {
       "type": "none",
-      "detail": "If you recognise the delivery of aluminium profiles on 28 September, pay it as you normally would. If you do not remember ordering them, phone the company on a number you already have, not just the one in the message."
+      "detail": "If you ordered these aluminium profiles and received them, pay the invoice as you normally would. If you do not recognise the delivery, phone the company on a number you already have, not just the one in this message."
     },
     "analysis": {
       "language": "en",
-      "benign_reading": "A routine invoice from a supplier for goods already delivered (aluminium profiles), on ordinary 14-day payment terms, sent from the company's own billing address with a phone number for questions.",
+      "benign_reading": "A routine invoice from a supplier for goods already delivered, sent from the company's own billing address, on ordinary 14-day payment terms with a phone number for questions.",
       "tactics": [],
       "verdict": "safe",
       "confidence": "high",
       "headline": "This looks like a normal invoice from a supplier.",
-      "explain_simple": "This is a bill for aluminium profiles that were delivered on 28 September. It gives you 14 days to pay, which is ordinary. It says the bank details have not changed, and there is a phone number if you want to ask about anything. Nothing here is rushing you or asking for anything unusual.",
+      "explain_simple": "This is a bill for aluminium profiles that were delivered at the end of September. It gives you 14 days to pay, which is ordinary. It says the bank details have not changed, and there is a phone number if you have questions. There are no links, nothing is trying to rush you, and nobody is asking you to keep it quiet.",
       "recommended_action": {
         "type": "none",
-        "detail": "If you recognise the delivery of aluminium profiles on 28 September, pay it as you normally would. If you do not remember ordering them, phone the company on a number you already have, not just the one in the message."
+        "detail": "If you ordered these aluminium profiles and received them, pay the invoice as you normally would. If you do not recognise the delivery, phone the company on a number you already have, not just the one in this message."
       },
       "_problems": [],
       "_attempts": 1,
@@ -871,19 +838,19 @@
     "headline": "This looks like a normal security notice from your bank.",
     "action": {
       "type": "none",
-      "detail": "If you recognise the sign-in, ignore the message. If you don't, log in the way you normally do (the bank's app, or the address you type yourself) or call the number on your card, and change your password there."
+      "detail": "If the sign-in details (Chrome on Windows, Karlovy Vary, 2 October at 19:42) match something you did, do nothing. If they do not, open your banking the usual way or call the number on your card, and change your password there."
     },
     "analysis": {
       "language": "en",
-      "benign_reading": "Banks routinely send a notice when internet banking is accessed from a new device. This one gives the date, device and location, says no action is needed if it was you, and tells the reader to log in by their usual route or use the number on their card.",
+      "benign_reading": "Banks routinely send automatic notices when an account is accessed from a new device. This one comes from the bank's own address, has no links, and gives ordinary advice.",
       "tactics": [],
       "verdict": "safe",
       "confidence": "high",
       "headline": "This looks like a normal security notice from your bank.",
-      "explain_simple": "This message tells you someone signed in to your internet banking from a new device. If that was you, you do not need to do anything. If it was not you, it tells you to log in the way you always do, or to call the number printed on your card. There is no link to click. It does not ask for your password or card details, and it says the bank will never ask for them by email. Nothing here is trying to rush or trick you.",
+      "explain_simple": "The bank is telling you that someone signed in to your internet banking from a new device. If that was you, you can ignore it. If it was not you, it tells you to log in the way you always do, or phone the number printed on your card, and change your password. There is no link to click and no one is asking for your password or card details. The message even says the bank will never ask for them by email.",
       "recommended_action": {
         "type": "none",
-        "detail": "If you recognise the sign-in, ignore the message. If you don't, log in the way you normally do (the bank's app, or the address you type yourself) or call the number on your card, and change your password there."
+        "detail": "If the sign-in details (Chrome on Windows, Karlovy Vary, 2 October at 19:42) match something you did, do nothing. If they do not, open your banking the usual way or call the number on your card, and change your password there."
       },
       "_problems": [],
       "_attempts": 1,
@@ -916,19 +883,19 @@
     "headline": "This looks like a normal password reset email from GitHub.",
     "action": {
       "type": "none",
-      "detail": "If you asked for the reset, use the link. If you didn't, ignore the email. Your password stays the same unless someone uses the link. If you are worried, open github.com by typing the address yourself and check your account security settings."
+      "detail": "If you asked to reset your password just now, use the link. If you did not, ignore the email. If you are unsure, go to GitHub by typing github.com yourself and log in as usual."
     },
     "analysis": {
       "language": "en",
-      "benign_reading": "GitHub sends this exact kind of email when someone, usually the account owner, asks to reset a password. The sender address, the link and the wording all fit a normal reset request.",
+      "benign_reading": "GitHub sends this exact kind of email when someone, usually the account owner, clicks 'forgot password'. The sender address, the link text and the link destination all point to github.com, and the email says to ignore it if the reader did not ask for the reset.",
       "tactics": [],
       "verdict": "safe",
       "confidence": "high",
       "headline": "This looks like a normal password reset email from GitHub.",
-      "explain_simple": "Someone asked to reset the password for this GitHub account. If that was you, the link in the email is the normal way to do it. The link goes to GitHub's own website, exactly as it appears. The one-hour limit is standard for these emails and is there to protect your account. If you did not ask for a reset, you can just ignore the email, and nothing will change.",
+      "explain_simple": "This email says someone asked to reset the password on your GitHub account. If that was you, the link will let you choose a new one. If it was not you, you can ignore it and nothing changes. The link goes to GitHub's own website, matching what the email shows. The one-hour time limit is normal for reset links. The email does not ask for your current password or any payment.",
       "recommended_action": {
         "type": "none",
-        "detail": "If you asked for the reset, use the link. If you didn't, ignore the email. Your password stays the same unless someone uses the link. If you are worried, open github.com by typing the address yourself and check your account security settings."
+        "detail": "If you asked to reset your password just now, use the link. If you did not, ignore the email. If you are unsure, go to GitHub by typing github.com yourself and log in as usual."
       },
       "_problems": [],
       "_attempts": 1,
@@ -958,22 +925,22 @@
     "bad_quotes": [],
     "confidence": "high",
     "attempts": 1,
-    "headline": "This looks like a normal sale newsletter from a shop you signed up to.",
+    "headline": "This looks like an ordinary sale email from a shop you signed up to.",
     "action": {
       "type": "none",
-      "detail": "Nothing to do. If you are interested in the sale, you can look at it as usual. If you no longer want these emails, use the unsubscribe link."
+      "detail": "No action needed. If you want to shop, you can use the link or type the shop's address into your browser yourself. If you no longer want these emails, use the unsubscribe link."
     },
     "analysis": {
       "language": "en",
-      "benign_reading": "A routine promotional newsletter from an online electronics shop the reader subscribed to, announcing a time-limited autumn sale with a link to the shop's own site and an unsubscribe notice.",
+      "benign_reading": "A promotional newsletter from an online electronics shop the reader subscribed to, announcing a time-limited sale. The sender address, the link and the visible link text all point to the same shop website, and the message explains why the reader is receiving it.",
       "tactics": [],
       "verdict": "safe",
       "confidence": "high",
-      "headline": "This looks like a normal sale newsletter from a shop you signed up to.",
-      "explain_simple": "This is an advert from an online shop, telling you about a discount on laptops and similar items. The sale has an end date, which is normal for shop sales. The link goes to the shop's own website, matching the name shown. It does not ask for your password, card details or any personal information. It also explains why you got it and how to stop receiving it.",
+      "headline": "This looks like an ordinary sale email from a shop you signed up to.",
+      "explain_simple": "This is an advertisement from an online shop, telling you about a discount on laptops and similar items. The sale has an end date, which is normal for shop sales. The link goes to the shop's own website, just as it says. It asks for no passwords, no card details and no secrets. If you are not interested, you can ignore it or unsubscribe.",
       "recommended_action": {
         "type": "none",
-        "detail": "Nothing to do. If you are interested in the sale, you can look at it as usual. If you no longer want these emails, use the unsubscribe link."
+        "detail": "No action needed. If you want to shop, you can use the link or type the shop's address into your browser yourself. If you no longer want these emails, use the unsubscribe link."
       },
       "_problems": [],
       "_attempts": 1,
@@ -1003,22 +970,22 @@
     "bad_quotes": [],
     "confidence": "medium",
     "attempts": 1,
-    "headline": "This looks like a normal parcel pickup notice.",
+    "headline": "This looks like a normal notice that a parcel is waiting for you.",
     "action": {
       "type": "none",
-      "detail": "If you are expecting a parcel, collect it as usual. If you are not, ignore the message, and do not pay or enter any personal details if a site asks for them."
+      "detail": "If you are expecting a parcel, collect it as usual. If you are not sure it is yours, type the company's website address into your browser yourself and enter the parcel number there, rather than relying on this message."
     },
     "analysis": {
       "language": "en",
-      "benign_reading": "Zasilkovna is a real Czech parcel pickup service. This looks like an ordinary notification that a parcel has arrived at a pickup point, with a collection code and a pickup deadline, sent by someone who was expecting a delivery.",
+      "benign_reading": "Zasilkovna is a real parcel pick-up service. A notice that a parcel is ready, with a collection code, a pick-up point and a collection deadline, is exactly what a customer who ordered something would receive.",
       "tactics": [],
       "verdict": "safe",
       "confidence": "medium",
-      "headline": "This looks like a normal parcel pickup notice.",
-      "explain_simple": "The message says a parcel is waiting for you at a pickup point and gives a code to collect it. The sender's address and the tracking link both match the company's real website. It does not ask for money, a password or card details, and it does not try to rush you. The pickup date is just the normal time limit for collecting a parcel. The one thing worth checking is whether you are actually expecting a parcel.",
+      "headline": "This looks like a normal notice that a parcel is waiting for you.",
+      "explain_simple": "This message says a parcel is ready at a pick-up point and gives you a code to collect it. The sender's address matches the company name, and the tracking link goes to the company's own website. It does not ask for your password, card details or any money, and it does not try to rush you. The date is just how long they keep the parcel. The only thing to check is whether you are expecting a parcel.",
       "recommended_action": {
         "type": "none",
-        "detail": "If you are expecting a parcel, collect it as usual. If you are not, ignore the message, and do not pay or enter any personal details if a site asks for them."
+        "detail": "If you are expecting a parcel, collect it as usual. If you are not sure it is yours, type the company's website address into your browser yourself and enter the parcel number there, rather than relying on this message."
       },
       "_problems": [],
       "_attempts": 1,
