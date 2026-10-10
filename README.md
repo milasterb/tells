@@ -129,6 +129,8 @@ only to catch over-warning.
 
 ## Results
 
+Fifteen messages is a demonstration, not a benchmark. The set was built to cover distinct tactics and the hardest false-positive cases, not to estimate accuracy on real mail. Growing it, starting with adversarial and prompt-injection cases, is the first thing I would do next.
+
 Run `python tests/run_eval.py` and `node tests/test_signals.js`.
 
 The test set is fifteen messages: ten scams covering distinct tactics, and five
